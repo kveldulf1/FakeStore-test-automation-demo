@@ -59,7 +59,13 @@ public class CartTests extends BaseTest {
         ProductPage productPage = new ProductPage(driver).goToClimbingProduct();
         productPage.demoNotice.close();
 
-        int productsQuantity = productPage.addToCart().viewCart().setQuantityValue(10).updateCart().waitForProccesingEnd().getProductQuantity();
+        int productsQuantity = productPage
+                .addToCart()
+                .viewCart()
+                .setQuantityValue(10)
+                .updateCart()
+                .waitForProccesingEnd()
+                .getProductQuantity();
         assertTrue(productsQuantity == 10, "Actual products quantity in cart does not match expected quantity.");
     }
 
@@ -71,7 +77,7 @@ public class CartTests extends BaseTest {
 
         boolean isCartEmpty = productPage.addToCart().viewCart().removeProduct().isCartEmpty();
 
-        assertTrue(isCartEmpty == true, "The attempt to remove the product from the cart was unsuccessful.");
+        assertTrue(isCartEmpty, "The attempt to remove the product from the cart was unsuccessful.");
     }
 
 }

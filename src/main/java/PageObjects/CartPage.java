@@ -16,6 +16,7 @@ public class CartPage extends BasePage {
     private By loadingIconLocator = By.cssSelector(".blockOverlay");
     private By removeProductFromCartButton = By.cssSelector("a.remove");
     private By emptyCartMessageContainerLocator = By.cssSelector("p.cart-empty");
+    private By checkoutButtonLocator = By.cssSelector("a.checkout-button");
 
     public CartPage(WebDriver driver) {
 
@@ -99,6 +100,12 @@ public class CartPage extends BasePage {
     }
 
 
+    public CheckoutPage goToCheckOut() {
+
+        wait.until(ExpectedConditions.elementToBeClickable(checkoutButtonLocator)).click();
+
+        return new CheckoutPage(driver);
+    }
 }
 
 
