@@ -60,7 +60,7 @@ public class CartPage extends BasePage {
 
         quantityInput.clear();
         quantityInput.sendKeys(Integer.toString(quantity));
-        return new CartPage(driver);
+        return this;
     }
 
     public CartPage updateCart() {
@@ -69,7 +69,7 @@ public class CartPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(updateCartButtonLocator));
         driver.findElement(updateCartButtonLocator).click();
 
-        return new CartPage(driver);
+        return this;
     }
 
     public CartPage waitForProccesingEnd() {
@@ -77,7 +77,7 @@ public class CartPage extends BasePage {
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
 
-        return new CartPage(driver);
+        return this;
     }
 
     public CartPage removeProduct() {
@@ -85,7 +85,7 @@ public class CartPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(removeProductFromCartButton)).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(emptyCartMessageContainerLocator)).getText();
 
-        return new CartPage(driver);
+        return this;
 
     }
 
@@ -123,6 +123,7 @@ public class CartPage extends BasePage {
     }
 
     private void waitForShopTable() {
+
         WebDriverWait wait = new WebDriverWait(driver, 7);
         wait.until(ExpectedConditions.presenceOfElementLocated(shopTableLocator));
 

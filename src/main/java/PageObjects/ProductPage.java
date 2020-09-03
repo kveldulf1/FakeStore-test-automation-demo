@@ -32,7 +32,7 @@ public class ProductPage extends BasePage {
     public ProductPage addToCart() {
 
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonLocator)).click();
-        return new ProductPage(driver);
+        return this;
     }
 
     public CartPage viewCart() {
@@ -50,6 +50,6 @@ public class ProductPage extends BasePage {
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(quantity));
 
-        return new ProductPage(driver);
+        return this;
     }
 }
