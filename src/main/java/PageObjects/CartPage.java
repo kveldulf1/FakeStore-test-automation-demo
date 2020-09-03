@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage extends BasePage {
 
+
     private WebDriverWait wait;
     private By productQuantityFieldLocator = By.cssSelector("div.quantity>input");
     private By productsInCartLocator = By.cssSelector("tr.cart_item");
@@ -17,6 +18,7 @@ public class CartPage extends BasePage {
     private By removeProductFromCartButton = By.cssSelector("a.remove");
     private By emptyCartMessageContainerLocator = By.cssSelector("p.cart-empty");
     private By checkoutButtonLocator = By.cssSelector("a.checkout-button");
+    private String removeProductButtonCssSelector = "a[data-product_id='<product_id>']";
 
     public CartPage(WebDriver driver) {
 
@@ -105,6 +107,25 @@ public class CartPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(checkoutButtonLocator)).click();
 
         return new CheckoutPage(driver);
+    }
+
+    public boolean isProductInCart(String productId) {
+        waitForShopTable();
+        By removeProductLocator = By.cssSelector(removeProductButtonCssSelector.replace("<product_id>", productId));
+        int productRecords = driver.findElements(removeProductLocator).size();
+        boolean presenceOfProduct = false;
+        if (productRecords==1){
+            presenceOfProduct = true;
+        } else if (productRecords>1){
+            throw new IllegalArgumentException("There is more than one record for the product in cart.");
+        }
+        return presenceOfProduct;
+    }
+
+    private void waitForShopTable() {
+        WebDriverWait wait = new WebDriverWait(driver, 7);
+        wait.until(ExpectedConditions.presenceOfElementLocated(shopTableLocator));
+
     }
 }
 

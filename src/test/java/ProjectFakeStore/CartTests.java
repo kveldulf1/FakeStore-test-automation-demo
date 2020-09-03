@@ -13,15 +13,21 @@ public class CartTests extends BaseTest {
 
     String productUrl = "https://fakestore.testelka.pl/product/wspinaczka-via-ferraty/";
     String categoryUrl = "https://fakestore.testelka.pl/product-category/windsurfing/";
+    String productId = "40";
 
     @Test
     public void addOneProductToCartFromProductPageTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
         productPage.demoNotice.close();
-        int productAmount = productPage.addToCart().viewCart().getProductQuantity();
-        Assertions.assertTrue(productAmount == 1,
-                "Failed to add one product to cart from product page.");
+        boolean isProductInCart = productPage
+                .addToCart()
+                .viewCart()
+                .isProductInCart(productId);
+
+        assertTrue(isProductInCart, "Remove button was not found for a product with id=" + productId + ". "
+                + "Was the product added to cart?");
+
     }
 
     @Test
@@ -30,7 +36,10 @@ public class CartTests extends BaseTest {
         CategoryPage categoryPage = new CategoryPage(driver).goTo(categoryUrl);
         categoryPage.demoNotice.close();
 
-        int productAmount = categoryPage.addToCartIslandProduct().viewCart().getProductQuantity();
+        int productAmount = categoryPage
+                .addToCart()
+                .viewCart()
+                .getProductQuantity();
 
         Assertions.assertTrue(productAmount == 1,
                 "Failed to add one product to cart from category page.");

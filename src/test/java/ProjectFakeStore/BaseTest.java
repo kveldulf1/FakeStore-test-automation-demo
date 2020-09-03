@@ -38,7 +38,7 @@ public class BaseTest {
         DriverFactory driverFactory = new DriverFactory();   // Run starthub.bat and startnode.bat before tests execution
         driver = driverFactory.create(Browser.valueOf(browser), hubUrl);
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 
     }
 

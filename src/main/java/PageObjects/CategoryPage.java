@@ -1,6 +1,5 @@
 package PageObjects;
 
-import com.google.common.io.BaseEncoding;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,6 @@ public class CategoryPage extends BasePage {
     public DemoFooterPage demoNotice;
     private WebDriverWait wait;
 
-    private By productIslandPeakClimbingLocator = By.cssSelector("a[href='?add-to-cart=42']");
     private By viewCartButtonLocator = By.cssSelector(".added_to_cart");
     private By addToCartButtonLocator = By.cssSelector("a.add_to_cart_button");
     private By viewCartButton = By.cssSelector("a[title='Zobacz koszyk']");
@@ -34,10 +32,10 @@ public class CategoryPage extends BasePage {
 
     }
 
-    public CategoryPage addToCartIslandProduct() {
+    public CategoryPage addToCart() {
 
-        driver.findElement(productIslandPeakClimbingLocator).click();
-        return new CategoryPage(driver);
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonLocator)).click();
+        return this;
 
     }
 
@@ -49,6 +47,7 @@ public class CategoryPage extends BasePage {
 
     public CategoryPage addAllProductsToCart() {
 
+        wait.until(ExpectedConditions.presenceOfElementLocated(addToCartButtonLocator));
         List<WebElement> productsAddToCartButtons = driver.findElements(addToCartButtonLocator);
 
         int i = 0;
@@ -56,6 +55,6 @@ public class CategoryPage extends BasePage {
             singleAddToCartButton.click();
             wait.until(ExpectedConditions.numberOfElementsToBe(viewCartButton, ++i));
         }
-        return new CategoryPage(driver);
+        return this;
     }
 }
