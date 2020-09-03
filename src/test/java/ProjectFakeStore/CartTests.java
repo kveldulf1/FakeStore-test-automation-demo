@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests extends BaseTest {
 
-    String productUrl = "https://fakestore.testelka.pl/product/wspinaczka-via-ferraty/";
-    String categoryUrl = "https://fakestore.testelka.pl/product-category/windsurfing/";
+    String productUrl = baseUrl + "/wspinaczka-via-ferraty/";
+    String categoryUrl = baseUrl + "/product-category/windsurfing/";
     String productId = "40";
 
     @Test

@@ -23,9 +23,9 @@ public class ProductPage extends BasePage {
     private By addToCartButtonLocator = By.cssSelector("button[name='add-to-cart']");
     private By productQuantityFieldLocator = By.cssSelector("input.qty");
 
-    public ProductPage goTo(String prodctUrl) {
+    public ProductPage goTo(String productUrl) {
 
-        driver.navigate().to(prodctUrl);
+        driver.navigate().to(productUrl);
         return new ProductPage(driver);
     }
 
