@@ -28,17 +28,9 @@ public class CategoryPage extends BasePage {
 
     }
 
-    public CategoryPage goToClimbingCategory() {
-
-        driver.navigate().to("https://fakestore.testelka.pl/product-category/wspinaczka/");
-        return new CategoryPage(driver);
-
-    }
-
-    public CategoryPage goToWindsurfingCategory() {
-
-        driver.navigate().to("https://fakestore.testelka.pl/product-category/windsurfing/");
-        return new CategoryPage(driver);
+    public CategoryPage goTo(String url) {
+        driver.navigate().to(url);
+        return this;
 
     }
 

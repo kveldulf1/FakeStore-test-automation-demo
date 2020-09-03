@@ -23,9 +23,9 @@ public class ProductPage extends BasePage {
     private By addToCartButtonLocator = By.cssSelector("button[name='add-to-cart']");
     private By productQuantityFieldLocator = By.cssSelector("input.qty");
 
-    public ProductPage goToClimbingProduct() {
+    public ProductPage goTo(String prodctUrl) {
 
-        driver.navigate().to("https://fakestore.testelka.pl/product/wspinaczka-via-ferraty/");
+        driver.navigate().to(prodctUrl);
         return new ProductPage(driver);
     }
 
