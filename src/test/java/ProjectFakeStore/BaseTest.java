@@ -3,6 +3,7 @@ package ProjectFakeStore;
 import Drivers.Browser;
 import Drivers.DriverFactory;
 import PageObjects.ProductPage;
+import Utils.ConfigurationManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,25 +19,14 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
 
     protected WebDriver driver;
-    protected static String baseUrl;
-    private static String hubUrl;
-    private static String browser;
+    protected String baseUrl = ConfigurationManager.getInstance().getBaseUrl();
 
-    @BeforeAll
-    public static void loadConfig() throws IOException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/configs/Configurations.properties"));
-        hubUrl = properties.getProperty("hubUrl");
-        baseUrl = properties.getProperty("baseUrl");
-        browser = properties.getProperty("browser");
-
-    }
 
     @BeforeEach
     public void driverSetup() throws MalformedURLException {
 
         DriverFactory driverFactory = new DriverFactory();   // Run starthub.bat and startnode.bat before tests execution
-        driver = driverFactory.create(Browser.valueOf(browser), hubUrl);
+        driver = driverFactory.create();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 
