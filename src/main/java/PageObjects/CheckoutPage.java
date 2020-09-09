@@ -24,6 +24,9 @@ public class CheckoutPage extends BasePage {
     private By acceptTermsLocator = By.cssSelector("input#terms");
     private By placeOrderButtonLocator = By.cssSelector("button#place_order");
     private By loadingIconLocator = By.cssSelector(".blockOverlay");
+    private By cvcFieldFrameLocator = By.cssSelector("[name='__privateStripeFrame10']");
+    private By expirationDateFrameLocator = By.cssSelector("[name='__privateStripeFrame9']");
+    private By cardNumberFrameLocator = By.cssSelector("[name='__privateStripeFrame8']");
 
     public CheckoutPage(WebDriver driver) {
 
@@ -34,12 +37,14 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage fillOutValidDetails() {
 
-        fillOutRegistrationDetails("Egill", "Skallagrimsson", "thorolf@postur.is", "Kveldulfsvegur", "11-123", "Mosfell", "600321666");
+        fillOutRegistrationDetails("Egill", "Skallagrimsson", "thorolf@postur.is",
+                "Kveldulfsvegur", "11-123", "Mosfell", "600321666");
 
         return this;
     }
 
-    public CheckoutPage fillOutRegistrationDetails(String firstName, String lastName, String email, String street, String postCode, String city, String mobileNumber) {
+    public CheckoutPage fillOutRegistrationDetails(String firstName, String lastName, String email,
+                                                   String street, String postCode, String city, String mobileNumber) {
 
         driver.findElement(nameFieldLocator).sendKeys(firstName);
         driver.findElement(lastNameFieldLocator).sendKeys(lastName);
@@ -59,16 +64,20 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage submitPaymentDetails() {
 
-        driver.switchTo().frame(0);
-
+        WebElement cardNumberInputFrame = driver.findElement(cardNumberFrameLocator);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberInputFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardNumberInputLocator)).sendKeys("4242424242424242");
 
         driver.switchTo().defaultContent();
-        driver.switchTo().frame(1);
+
+        WebElement expirationDateFrame = driver.findElement(expirationDateFrameLocator);
+        driver.switchTo().frame(expirationDateFrame);
         wait.until(ExpectedConditions.elementToBeClickable(cardExpDateFieldLocator)).sendKeys("02/23");
 
         driver.switchTo().defaultContent();
-        driver.switchTo().frame(2);
+
+        WebElement cvcFieldFrame = driver.findElement(cvcFieldFrameLocator);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardCVCFieldLocator)).sendKeys("311");
 
         return this;
@@ -77,6 +86,7 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage acceptTerms() {
 
         driver.switchTo().defaultContent();
+        waitForProccesingEnd();
         driver.findElement(acceptTermsLocator).click();
 
         return this;
@@ -89,6 +99,13 @@ public class CheckoutPage extends BasePage {
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
 
         return new OrderReceivedPage(driver);
+    }
 
+    public CheckoutPage waitForProccesingEnd() {
+
+        wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
+
+        return this;
     }
 }

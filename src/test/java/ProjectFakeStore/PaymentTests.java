@@ -8,8 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-    String productUrl = "https://fakestore.testelka.pl/product/wspinaczka-via-ferraty/";
-    String categoryURL = "https://fakestore.testelka.pl/product-category/wspinaczka/";
+    String productUrl = baseUrl + "/wspinaczka-via-ferraty/";
+    String categoryUrl = baseUrl + "/product-category/windsurfing/";
+    String productId = "40";
+
 
     @Test
     public void buyOneProductWithoutAccountTest() {
@@ -26,7 +28,6 @@ public class PaymentTests extends BaseTest {
                 .placeOrder();
 
         boolean isOrderSuccessful = orderReceivedPage.isOrderSuccessful();
-
         assertTrue(isOrderSuccessful, "The order was not succesfully placed.");
     }
 
