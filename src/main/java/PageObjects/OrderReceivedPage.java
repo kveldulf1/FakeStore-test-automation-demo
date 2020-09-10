@@ -9,6 +9,7 @@ public class OrderReceivedPage extends BasePage {
     WebDriverWait wait;
 
     private By orderStatusLocator = By.cssSelector(".woocommerce-thankyou-order-received");
+    private By myAccountButton = By.cssSelector("li.my-account.menu-item-201");
 
 
     public OrderReceivedPage(WebDriver driver) {
@@ -29,4 +30,10 @@ public class OrderReceivedPage extends BasePage {
         }
     }
 
+    public MyAccountPage goToMyAccount() {
+
+        wait.until(ExpectedConditions.elementToBeClickable(myAccountButton)).click();
+
+        return new MyAccountPage(driver);
+    }
 }

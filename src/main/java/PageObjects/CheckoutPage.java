@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.security.auth.callback.PasswordCallback;
+
 public class CheckoutPage extends BasePage {
 
     private WebDriverWait wait;
@@ -27,6 +29,8 @@ public class CheckoutPage extends BasePage {
     private By cvcFieldFrameLocator = By.cssSelector("[name='__privateStripeFrame10']");
     private By expirationDateFrameLocator = By.cssSelector("[name='__privateStripeFrame9']");
     private By cardNumberFrameLocator = By.cssSelector("[name='__privateStripeFrame8']");
+    private By createAccountCheckboxLocator = By.cssSelector("input#createaccount");
+    private By passwordField = By.cssSelector("input#account_password");
 
     public CheckoutPage(WebDriver driver) {
 
@@ -105,6 +109,20 @@ public class CheckoutPage extends BasePage {
 
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
+
+        return this;
+    }
+
+    public CheckoutPage createNewAccount() {
+
+        wait.until(ExpectedConditions.elementToBeClickable(createAccountCheckboxLocator)).click();
+
+        return this;
+    }
+
+    public CheckoutPage setPassword(String password) {
+
+        wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(password);
 
         return this;
     }
