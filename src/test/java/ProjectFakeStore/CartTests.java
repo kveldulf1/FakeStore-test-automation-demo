@@ -50,7 +50,11 @@ public class CartTests extends BaseTest {
 
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
         productPage.demoNotice.close();
-        String productsAmount = productPage.setQuantityTo("10").addToCart().viewCart().getQuantityValue();
+        String productsAmount = productPage
+                .setQuantityTo("10")
+                .addToCart()
+                .viewCart()
+                .getQuantityValue();
 
         assertEquals("10", productsAmount, "Attempt to add 10 products to cart was unsuccessful.");
     }
@@ -91,7 +95,11 @@ public class CartTests extends BaseTest {
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
         productPage.demoNotice.close();
 
-        boolean isCartEmpty = productPage.addToCart().viewCart().removeProduct().isCartEmpty();
+        boolean isCartEmpty = productPage
+                .addToCart()
+                .viewCart()
+                .removeProduct()
+                .isCartEmpty();
 
         assertTrue(isCartEmpty, "The attempt to remove the product from the cart was unsuccessful.");
     }

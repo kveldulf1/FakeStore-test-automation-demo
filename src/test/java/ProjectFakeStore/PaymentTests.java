@@ -1,23 +1,18 @@
 package ProjectFakeStore;
 
-import PageObjects.MyAccountPage;
 import PageObjects.MyOrdersPage;
 import PageObjects.OrderReceivedPage;
 import PageObjects.ProductPage;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
     String productUrl = baseUrl + "/wspinaczka-via-ferraty/";
-    String categoryUrl = baseUrl + "/product-category/windsurfing/";
-    String productId = "40";
 
-
-    @Test
+    @RepeatedTest(2)
     public void buyOneProductWithoutAccountTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
@@ -35,8 +30,8 @@ public class PaymentTests extends BaseTest {
         assertTrue(isOrderSuccessful, "The order was not successfully placed.");
     }
 
-    @RepeatedTest(19)
-    public void buyOneProductAndSignUpTest() throws InterruptedException{
+    @RepeatedTest(2)
+    public void buyOneProductAndSignUpTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
         productPage.demoNotice.close();
@@ -60,11 +55,30 @@ public class PaymentTests extends BaseTest {
                 "Failed to place the order with simultaneous new account registration.");
 
         MyOrdersPage myOrdersPage = new MyOrdersPage(driver);
-
-        myOrdersPage
-                .goToMyAccount()
-                .deleteAccount();
+        myOrdersPage.goToMyAccount().deleteAccount();
 
     }
 
+    @RepeatedTest(2)
+    public void payAndSignInFromPaymentPageTest() {
+
+        ProductPage productPage = new ProductPage(driver).goTo(productUrl);
+        productPage.demoNotice.close();
+
+        String orderStatus = productPage.addToCart()
+                .viewCart()
+                .goToCheckOut()
+                .goToSignInSection()
+                .enterUserName("abc123@postur.is")
+                .enterPassword("Egil123!!!")
+                .useLogInButton()
+                .enterEmail("abc123@postur.is")
+                .submitPaymentDetails()
+                .acceptTerms()
+                .placeOrder()
+                .getOrderStatus();
+
+        assertEquals("Dziękujemy. Otrzymaliśmy Twoje zamówienie.",
+                orderStatus, "Failed to sign from payment page and to complete the order.");
+    }
 }

@@ -7,8 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.security.auth.callback.PasswordCallback;
-
 public class CheckoutPage extends BasePage {
 
     private WebDriverWait wait;
@@ -30,7 +28,12 @@ public class CheckoutPage extends BasePage {
     private By expirationDateFrameLocator = By.cssSelector("[name='__privateStripeFrame9']");
     private By cardNumberFrameLocator = By.cssSelector("[name='__privateStripeFrame8']");
     private By createAccountCheckboxLocator = By.cssSelector("input#createaccount");
-    private By passwordField = By.cssSelector("input#account_password");
+    private By setPasswordFieldLocator = By.cssSelector("input#account_password");
+    private By signInButtonLocator = By.cssSelector("a.showlogin");
+    private By usernameFieldLocator = By.cssSelector("input#username");
+    private By passwordFieldLocator = By.cssSelector("input#password");
+    private By logInButttonLocator = By.cssSelector("button.woocommerce-form-login__submit");
+
 
     public CheckoutPage(WebDriver driver) {
 
@@ -47,11 +50,20 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+    public CheckoutPage enterEmail (String email){
+
+        driver.findElement(emailFieldLocator).clear();
+        driver.findElement(emailFieldLocator).sendKeys(email);
+
+        return this;
+            }
+
     public CheckoutPage fillOutRegistrationDetails(String firstName, String lastName, String email,
                                                    String street, String postCode, String city, String mobileNumber) {
 
         driver.findElement(nameFieldLocator).sendKeys(firstName);
         driver.findElement(lastNameFieldLocator).sendKeys(lastName);
+        driver.findElement(emailFieldLocator).clear();
         driver.findElement(emailFieldLocator).sendKeys(email);
 
         WebElement countrySelectionDropdown = driver.findElement(By.id("billing_country"));
@@ -122,7 +134,35 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage setPassword(String password) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(setPasswordFieldLocator)).sendKeys(password);
+
+        return this;
+    }
+
+    public CheckoutPage goToSignInSection() {
+
+        driver.findElement(signInButtonLocator).click();
+
+        return this;
+    }
+
+    public CheckoutPage enterUserName(String email) {
+
+        wait.until(ExpectedConditions.elementToBeClickable(usernameFieldLocator)).sendKeys(email);
+
+        return this;
+    }
+
+    public CheckoutPage enterPassword(String email) {
+
+        wait.until(ExpectedConditions.elementToBeClickable(passwordFieldLocator)).sendKeys("Egil123!!!");
+
+        return this;
+    }
+
+    public CheckoutPage useLogInButton() {
+
+        driver.findElement(logInButttonLocator).click();
 
         return this;
     }

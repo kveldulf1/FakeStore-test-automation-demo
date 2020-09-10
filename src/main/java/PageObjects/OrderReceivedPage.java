@@ -10,6 +10,7 @@ public class OrderReceivedPage extends BasePage {
 
     private By orderStatusLocator = By.cssSelector(".woocommerce-thankyou-order-received");
     private By myAccountButton = By.cssSelector("li.my-account.menu-item-201");
+    private By orderStatusInfoLocator = By.cssSelector("p.woocommerce-notice");
 
 
     public OrderReceivedPage(WebDriver driver) {
@@ -35,5 +36,10 @@ public class OrderReceivedPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(myAccountButton)).click();
 
         return new MyAccountPage(driver);
+    }
+
+    public String getOrderStatus() {
+
+        return wait.until(ExpectedConditions.presenceOfElementLocated(orderStatusInfoLocator)).getText();
     }
 }
