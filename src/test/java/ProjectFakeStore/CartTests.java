@@ -25,7 +25,7 @@ public class CartTests extends BaseTest {
                 .viewCart()
                 .isProductInCart(productId);
 
-        assertTrue(isProductInCart, "Remove button was not found for a product with id=" + productId + ". "
+        assertTrue(isProductInCart, "Remove button was n ot found for a product with id=" + productId + ". "
                 + "Was the product added to cart?");
 
     }
@@ -103,7 +103,6 @@ public class CartTests extends BaseTest {
 
         assertTrue(isCartEmpty, "The attempt to remove the product from the cart was unsuccessful.");
     }
-
 }
 
 

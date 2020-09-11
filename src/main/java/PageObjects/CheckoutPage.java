@@ -146,9 +146,9 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage enterUserName(String email) {
+    public CheckoutPage enterUserName(String userName) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(usernameFieldLocator)).sendKeys(email);
+        wait.until(ExpectedConditions.elementToBeClickable(usernameFieldLocator)).sendKeys(userName);
 
         return this;
     }

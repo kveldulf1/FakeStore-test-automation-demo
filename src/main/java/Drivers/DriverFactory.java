@@ -40,7 +40,7 @@ public class DriverFactory {
     private WebDriver getChromeDriver() {
 
         ChromeOptions options = new ChromeOptions();
-        options.setCapability(CapabilityType.VERSION, "84");        // check against nodeconfiguration.bat
+        options.setCapability(CapabilityType.VERSION, "84");        // check against nodeconfiguration.json
 
         return getDriver(options);
     }

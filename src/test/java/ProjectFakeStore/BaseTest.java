@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public  class BaseTest {
 
     protected WebDriver driver;
     protected String baseUrl = ConfigurationManager.getInstance().getBaseUrl();
