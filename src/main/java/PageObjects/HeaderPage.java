@@ -7,8 +7,10 @@ public class HeaderPage extends BasePage {
     protected HeaderPage(WebDriver driver) {
         super(driver);
     }
+
     private By totalPriceLocator = By.cssSelector(".cart-contents");
-    public CartPage viewCart(){
+
+    public CartPage viewCart() {
         driver.findElement(totalPriceLocator).click();
         return new CartPage(driver);
     }
