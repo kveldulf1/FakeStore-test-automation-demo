@@ -13,12 +13,13 @@ public class PaymentTests extends BaseTest {
     @Test
     public void buyOneProductWithoutAccountTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
 
         OrderReceivedPage orderReceivedPage = productPage.addToCart()
                 .viewCart()
                 .goToCheckOut()
+                .typeName(testData.getCustomer().getName())
                 .typeLastName(testData.getCustomer().getLastName())
                 .chooseCountry(testData.getAddress().getCountryCode())
                 .typeAddress(testData.getAddress().getStreet())

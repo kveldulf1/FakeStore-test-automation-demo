@@ -10,20 +10,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests extends BaseTest {
 
-
     @Test
     public void addOneProductToCartFromProductPageTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
         boolean isProductInCart = productPage
                 .addToCart()
                 .viewCart()
                 .isProductInCart(testData.getProduct().getId());
 
-        assertTrue(isProductInCart, "Remove button was n ot found for a product with id=" + testData.getProduct().getId() + ". "
+        assertTrue(isProductInCart, "Remove button was not found for a product with id = " + testData.getProduct().getId() + ". "
                 + "Was the product added to cart?");
-
     }
 
     @Test
@@ -44,7 +42,7 @@ public class CartTests extends BaseTest {
     @Test
     public void addTenIdenticalProductsToCartTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
         String productsAmount = productPage
                 .setQuantityTo("10")
@@ -72,7 +70,7 @@ public class CartTests extends BaseTest {
     @Test
     public void changeQuantityOfProductsAddedToCartTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
 
         int productsQuantity = productPage
@@ -88,7 +86,7 @@ public class CartTests extends BaseTest {
     @Test
     public void removeProductFromCartTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
 
         boolean isCartEmpty = productPage
