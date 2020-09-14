@@ -14,6 +14,8 @@ public class CheckoutPage extends BasePage {
     private By nameFieldLocator = By.cssSelector("input[name='billing_first_name']");
     private By lastNameFieldLocator = By.cssSelector("input[name='billing_last_name']");
     private By mobileNumberFieldLocator = By.cssSelector("input#billing_phone");
+    private By countryCodeArrowLocator = By.cssSelector(".select2-selection__arrow");
+    private String countryCodeCssSelector = "li[id*='-<country_code>']";
     private By cityFieldLocator = By.cssSelector("input#billing_city");
     private By postcodeFieldLocator = By.cssSelector("input#billing_postcode");
     private By billingAddressFieldLocator = By.cssSelector("input#billing_address_1");
@@ -50,13 +52,13 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage enterEmail (String email){
+    public CheckoutPage enterEmail(String email) {
 
         driver.findElement(emailFieldLocator).clear();
         driver.findElement(emailFieldLocator).sendKeys(email);
 
         return this;
-            }
+    }
 
     public CheckoutPage fillOutRegistrationDetails(String firstName, String lastName, String email,
                                                    String street, String postCode, String city, String mobileNumber) {
@@ -98,6 +100,75 @@ public class CheckoutPage extends BasePage {
 
         return this;
     }
+
+    public CheckoutPage typeName(String name) {
+        wait.until(ExpectedConditions.elementToBeClickable(nameFieldLocator)).sendKeys(name);
+        return this;
+    }
+
+    public CheckoutPage typeLastName(String lastName) {
+        wait.until(ExpectedConditions.elementToBeClickable(lastNameFieldLocator)).sendKeys(lastName);
+        return this;
+    }
+
+    public CheckoutPage chooseCountry(String countryCode) {
+        wait.until(ExpectedConditions.elementToBeClickable(countryCodeArrowLocator)).click();
+        By countryCodeLocator = By.cssSelector(countryCodeCssSelector.replace("<country_code>", countryCode));
+        wait.until(ExpectedConditions.elementToBeClickable(countryCodeLocator)).click();
+        return this;
+    }
+
+    public CheckoutPage typeAddress(String address) {
+        wait.until(ExpectedConditions.elementToBeClickable(billingAddressFieldLocator)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(billingAddressFieldLocator)).sendKeys(address);
+        return this;
+    }
+
+    public CheckoutPage typePostalCode(String postalCode) {
+        wait.until(ExpectedConditions.elementToBeClickable(postcodeFieldLocator)).sendKeys(postalCode);
+        return this;
+    }
+
+    public CheckoutPage typeCity(String city) {
+        wait.until(ExpectedConditions.elementToBeClickable(cityFieldLocator)).sendKeys("Sopot");
+        return this;
+    }
+
+    public CheckoutPage typePhone(String phone) {
+        wait.until(ExpectedConditions.elementToBeClickable(mobileNumberFieldLocator)).sendKeys(phone);
+        return this;
+    }
+
+    public CheckoutPage typeEmail(String emailAddress) {
+        wait.until(ExpectedConditions.elementToBeClickable(emailFieldLocator)).sendKeys(emailAddress);
+        return this;
+    }
+
+    public CheckoutPage typeCardNumber(String cardNumber) {
+        WebElement cardNumberInputFrame = driver.findElement(cardNumberFrameLocator);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberInputFrame));
+        wait.until(ExpectedConditions.elementToBeClickable(cardNumberInputLocator)).sendKeys(cardNumber);
+        driver.switchTo().defaultContent();
+        return this;
+    }
+
+    public CheckoutPage typeCardExpirationDate(String expirationDate) {
+
+        WebElement expirationDateFrame = driver.findElement(expirationDateFrameLocator);
+        driver.switchTo().frame(expirationDateFrame);
+        wait.until(ExpectedConditions.elementToBeClickable(cardExpDateFieldLocator)).sendKeys(expirationDate);
+        driver.switchTo().defaultContent();
+        return this;
+    }
+
+    public CheckoutPage typeCvcCode(String cvcCode) {
+        WebElement cvcFieldFrame = driver.findElement(cvcFieldFrameLocator);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
+        wait.until(ExpectedConditions.elementToBeClickable(cardCVCFieldLocator)).sendKeys(cvcCode);
+        driver.switchTo().defaultContent();
+        return this;
+    }
+
 
     public CheckoutPage acceptTerms() {
 

@@ -10,21 +10,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests extends BaseTest {
 
-    String productUrl = "/wspinaczka-via-ferraty/";
-    String categoryUrl = "/product-category/windsurfing/";
-    String productId = "40";
 
     @Test
     public void addOneProductToCartFromProductPageTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
         productPage.demoNotice.close();
         boolean isProductInCart = productPage
                 .addToCart()
                 .viewCart()
-                .isProductInCart(productId);
+                .isProductInCart(testData.getProduct().getId());
 
-        assertTrue(isProductInCart, "Remove button was n ot found for a product with id=" + productId + ". "
+        assertTrue(isProductInCart, "Remove button was n ot found for a product with id=" + testData.getProduct().getId() + ". "
                 + "Was the product added to cart?");
 
     }
@@ -32,7 +29,7 @@ public class CartTests extends BaseTest {
     @Test
     public void addOneProductFromCategoryPageTest() {
 
-        CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + categoryUrl);
+        CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + testData.getCategoryURL());
         categoryPage.demoNotice.close();
 
         int productAmount = categoryPage
@@ -47,7 +44,7 @@ public class CartTests extends BaseTest {
     @Test
     public void addTenIdenticalProductsToCartTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
         productPage.demoNotice.close();
         String productsAmount = productPage
                 .setQuantityTo("10")
@@ -61,7 +58,7 @@ public class CartTests extends BaseTest {
     @Test
     public void addFiveDifferentProductsToCartTest() {
 
-        CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + categoryUrl);
+        CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + testData.getCategoryURL());
         categoryPage.demoNotice.close();
         int numberOfProducts = categoryPage
                 .addAllProductsToCart()
@@ -75,7 +72,7 @@ public class CartTests extends BaseTest {
     @Test
     public void changeQuantityOfProductsAddedToCartTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
         productPage.demoNotice.close();
 
         int productsQuantity = productPage
@@ -91,7 +88,7 @@ public class CartTests extends BaseTest {
     @Test
     public void removeProductFromCartTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
         productPage.demoNotice.close();
 
         boolean isCartEmpty = productPage

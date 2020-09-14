@@ -9,19 +9,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-    String productUrl = "/wspinaczka-via-ferraty/";
 
     @Test
     public void buyOneProductWithoutAccountTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getId());
         productPage.demoNotice.close();
 
         OrderReceivedPage orderReceivedPage = productPage.addToCart()
                 .viewCart()
                 .goToCheckOut()
-                .fillOutValidDetails()
-                .submitPaymentDetails()
+                .typeLastName(testData.getCustomer().getLastName())
+                .chooseCountry(testData.getAddress().getCountryCode())
+                .typeAddress(testData.getAddress().getStreet())
+                .typePostalCode(testData.getAddress().getPostalCode())
+                .typeCity(testData.getAddress().getCity())
+                .typePhone(testData.getContact().getPhone())
+                .typeEmail(testData.getContact().getEmail())
+                .typeCardNumber(testData.getCard().getNumber())
+                .typeCardExpirationDate(testData.getCard().getExpirationDate())
+                .typeCvcCode(testData.getCard().getCvc())
                 .acceptTerms()
                 .placeOrder();
 
@@ -32,7 +39,7 @@ public class PaymentTests extends BaseTest {
     @Test
     public void buyOneProductAndSignUpTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
 
         int amountOfOrderedProducts = productPage.addToCart()
@@ -61,7 +68,7 @@ public class PaymentTests extends BaseTest {
     @Test
     public void payAndSignInFromPaymentPageTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
 
         String orderStatus = productPage.addToCart()

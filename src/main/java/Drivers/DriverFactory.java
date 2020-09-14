@@ -1,6 +1,6 @@
 package Drivers;
 
-import Utils.ConfigurationManager;
+import Utils.ConfigurationReader;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +15,7 @@ public class DriverFactory {
 
     private RemoteWebDriver driver;
 
-    public WebDriver create(ConfigurationManager configuration)  {
+    public WebDriver create(ConfigurationReader configuration)  {
 
         switch (Browser.valueOf(configuration.getBrowser())) {
             case CHROME:
@@ -27,14 +27,14 @@ public class DriverFactory {
         }
     }
 
-    private WebDriver getFireFoxDriver(ConfigurationManager configuration) {
+    private WebDriver getFireFoxDriver(ConfigurationReader configuration) {
 
         FirefoxOptions options = new FirefoxOptions();
         return getDriver(options, configuration);
 
     }
 
-    private WebDriver getChromeDriver(ConfigurationManager configuration) {
+    private WebDriver getChromeDriver(ConfigurationReader configuration) {
 
         ChromeOptions options = new ChromeOptions();
         options.setCapability(CapabilityType.VERSION, "84");        // check against nodeconfiguration.json
@@ -42,7 +42,7 @@ public class DriverFactory {
         return getDriver(options, configuration);
     }
 
-    private WebDriver getDriver(MutableCapabilities options, ConfigurationManager configuration ){
+    private WebDriver getDriver(MutableCapabilities options, ConfigurationReader configuration ){
 
         try {
             driver = new RemoteWebDriver(new URL(configuration.getHubUrl()), options);
@@ -51,7 +51,6 @@ public class DriverFactory {
             System.out.println(e + "was thrown. HubUrl in the configuration file is incorrect or missing. Check the configuration file: " + configuration.getConfigurationLocation()) ;
         }
         return driver;
-
 
     }
 }

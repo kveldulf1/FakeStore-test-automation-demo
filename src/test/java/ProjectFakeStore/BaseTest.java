@@ -1,7 +1,8 @@
 package ProjectFakeStore;
 
 import Drivers.DriverFactory;
-import Utils.ConfigurationManager;
+import Utils.ConfigurationReader;
+import Utils.TestDataReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +16,16 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
 
     protected WebDriver driver;
-    protected ConfigurationManager configuration;
+    protected ConfigurationReader configuration;
+    protected TestDataReader testData;
+    private String testDataLocation = "src/test/java/TestData.properties";
+    private String configurationLocation = "src/configs/Configuration.properties";
 
     @BeforeAll
     public void getConfiguration() {
 
-        configuration = new ConfigurationManager();
+        configuration = new ConfigurationReader(configurationLocation);
+        testData = new TestDataReader(testDataLocation);
     }
 
     @BeforeEach
