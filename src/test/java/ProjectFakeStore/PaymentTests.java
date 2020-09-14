@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-    String productUrl = baseUrl + "/wspinaczka-via-ferraty/";
+    String productUrl = "/wspinaczka-via-ferraty/";
 
     @Test
     public void buyOneProductWithoutAccountTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
         productPage.demoNotice.close();
 
         OrderReceivedPage orderReceivedPage = productPage.addToCart()
@@ -32,7 +32,7 @@ public class PaymentTests extends BaseTest {
     @Test
     public void buyOneProductAndSignUpTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
         productPage.demoNotice.close();
 
         int amountOfOrderedProducts = productPage.addToCart()
@@ -61,7 +61,7 @@ public class PaymentTests extends BaseTest {
     @Test
     public void payAndSignInFromPaymentPageTest() {
 
-        ProductPage productPage = new ProductPage(driver).goTo(productUrl);
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + productUrl);
         productPage.demoNotice.close();
 
         String orderStatus = productPage.addToCart()

@@ -5,7 +5,6 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -16,42 +15,40 @@ public class DriverFactory {
 
     private RemoteWebDriver driver;
 
-    public WebDriver create()  {
+    public WebDriver create(ConfigurationManager configuration)  {
 
-        Browser browserType = Browser.valueOf(ConfigurationManager.getInstance().getBrowser());
-
-        switch (browserType) {
+        switch (Browser.valueOf(configuration.getBrowser())) {
             case CHROME:
-                return getChromeDriver();
+                return getChromeDriver(configuration);
             case FIREFOX:
-                return getFireFoxDriver();
+                return getFireFoxDriver(configuration );
             default:
                 throw new IllegalArgumentException("Provided browser does not exist.");
         }
     }
 
-    private WebDriver getFireFoxDriver() {
+    private WebDriver getFireFoxDriver(ConfigurationManager configuration) {
 
         FirefoxOptions options = new FirefoxOptions();
-        return getDriver(options);
+        return getDriver(options, configuration);
 
     }
 
-    private WebDriver getChromeDriver() {
+    private WebDriver getChromeDriver(ConfigurationManager configuration) {
 
         ChromeOptions options = new ChromeOptions();
         options.setCapability(CapabilityType.VERSION, "84");        // check against nodeconfiguration.json
 
-        return getDriver(options);
+        return getDriver(options, configuration);
     }
 
-    private WebDriver getDriver(MutableCapabilities options){
+    private WebDriver getDriver(MutableCapabilities options, ConfigurationManager configuration ){
 
         try {
-            driver = new RemoteWebDriver(new URL(ConfigurationManager.getInstance().getHubUrl()), options);
+            driver = new RemoteWebDriver(new URL(configuration.getHubUrl()), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            System.out.println(e + "was thrown. HubUrl in the configuration file is incorrect or missing. Check the configuration file: " + ConfigurationManager.getInstance().getConfigurationLocation());
+            System.out.println(e + "was thrown. HubUrl in the configuration file is incorrect or missing. Check the configuration file: " + configuration.getConfigurationLocation()) ;
         }
         return driver;
 

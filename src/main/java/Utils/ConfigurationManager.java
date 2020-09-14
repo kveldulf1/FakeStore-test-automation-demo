@@ -5,24 +5,15 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigurationManager {
-    private static ConfigurationManager instance;
 
     private String hubUrl;
     private String baseUrl;
     private String browser;
     private final String configurationLocation = "src/configs/Configuration.properties";
 
-    private ConfigurationManager() {
+    public ConfigurationManager() {
         loadData();
 
-    }
-
-    public static ConfigurationManager getInstance() {
-        if (instance == null) {
-            instance = new ConfigurationManager();
-        }
-
-        return instance;
     }
 
     public void loadData() {
@@ -32,7 +23,7 @@ public class ConfigurationManager {
             properties.load(new FileInputStream(getConfigurationLocation()));
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("There is something wrong with the configuration file. Does it exist?");
+            System.out.println("There is something wrong with the configuration file. Does it exist? File location: " + getConfigurationLocation());
         }
 
         hubUrl = properties.getProperty("hubUrl");
@@ -49,7 +40,7 @@ public class ConfigurationManager {
         return hubUrl;
     }
 
-    public String getConfigurationLocation(){
+    public String getConfigurationLocation() {
         return configurationLocation;
 
     }
