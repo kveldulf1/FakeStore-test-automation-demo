@@ -1,6 +1,7 @@
 package ProjectFakeStore;
 
 import Drivers.DriverFactory;
+import PageObjects.BasePage;
 import Utils.ConfigurationReader;
 import Utils.TestDataReader;
 import org.junit.jupiter.api.AfterEach;
@@ -20,6 +21,7 @@ public class BaseTest {
     protected TestDataReader testData;
     private String testDataLocation = "src/test/java/TestData.properties";
     private String configurationLocation = "src/configs/Configuration.properties";
+
 
     @BeforeAll
     public void getConfiguration() {

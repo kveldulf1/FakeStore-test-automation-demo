@@ -72,7 +72,6 @@ public class PaymentTests extends BaseTest {
 
         MyOrdersPage myOrdersPage = new MyOrdersPage(driver);
         myOrdersPage.goToMyAccount().deleteAccount();
-
     }
 
     @Test

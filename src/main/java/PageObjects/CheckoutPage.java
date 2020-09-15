@@ -79,10 +79,11 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage submitPersonalDetails(){
+//    public CheckoutPage submitPersonalDetails(){
 
-        return this;
-    }
+
+  //      return this;
+    //}
 
     public CheckoutPage submitPaymentDetails() {
 
