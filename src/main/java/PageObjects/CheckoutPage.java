@@ -81,7 +81,6 @@ public class CheckoutPage extends BasePage {
 
 //    public CheckoutPage submitPersonalDetails(){
 
-
   //      return this;
     //}
 

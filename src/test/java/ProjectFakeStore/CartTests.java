@@ -33,7 +33,7 @@ public class CartTests extends BaseTest {
         int productAmount = categoryPage
                 .addToCart()
                 .viewCart()
-                .getProductQuantity();
+                .getProductQuantityField();
 
         Assertions.assertTrue(productAmount == 1,
                 "Failed to add one product to cart from category page.");
@@ -48,7 +48,7 @@ public class CartTests extends BaseTest {
                 .setQuantity(10)
                 .addToCart()
                 .viewCart()
-                .getProductQuantity();
+                .getProductQuantityField();
 
         assertEquals(10, productsAmount, "Attempt to add 10 products to cart was unsuccessful.");
     }
@@ -79,7 +79,7 @@ public class CartTests extends BaseTest {
                 .setQuantity(10)
                 .updateCart()
                 .waitForProcessingEnd()
-                .getProductQuantity();
+                .getProductQuantityField();
         assertTrue(productsQuantity == 10, "Actual products quantity in cart does not match expected quantity.");
     }
 
