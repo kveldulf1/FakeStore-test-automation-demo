@@ -11,6 +11,7 @@ public class TestDataReader extends FileReader {
     private Address address;
     private Contact contact;
     private Card card;
+    private Password password;
 
     public TestDataReader(String testDataLocation) {
 
@@ -59,6 +60,10 @@ public class TestDataReader extends FileReader {
 
     public Card getCard() {
         return card;
+    }
+
+    public Password getPassword() {
+        return password;
     }
 }
 

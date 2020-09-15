@@ -78,6 +78,7 @@ public class CheckoutPage extends BasePage {
         driver.findElement(mobileNumberFieldLocator).sendKeys(mobileNumber);
 
         return this;
+
     }
 
     public CheckoutPage submitPaymentDetails() {
@@ -130,7 +131,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage typeCity(String city) {
-        wait.until(ExpectedConditions.elementToBeClickable(cityFieldLocator)).sendKeys("Sopot");
+        wait.until(ExpectedConditions.elementToBeClickable(cityFieldLocator)).sendKeys(city);
         return this;
     }
 
@@ -141,6 +142,11 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeEmail(String emailAddress) {
         wait.until(ExpectedConditions.elementToBeClickable(emailFieldLocator)).sendKeys(emailAddress);
+        return this;
+    }
+
+    public CheckoutPage typePassword(String password) {
+        wait.until(ExpectedConditions.elementToBeClickable(passwordFieldLocator)).sendKeys(password);
         return this;
     }
 
@@ -224,9 +230,9 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage enterPassword(String email) {
+    public CheckoutPage enterPassword(String password) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(passwordFieldLocator)).sendKeys("Egil123!!!");
+        wait.until(ExpectedConditions.elementToBeClickable(passwordFieldLocator)).sendKeys(password);
 
         return this;
     }

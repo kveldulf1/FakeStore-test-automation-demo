@@ -16,7 +16,7 @@ public class PaymentTests extends BaseTest {
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
 
-        OrderReceivedPage orderReceivedPage = productPage.addToCart()
+        productPage.addToCart()
                 .viewCart()
                 .goToCheckOut()
                 .typeName(testData.getCustomer().getName())
@@ -33,6 +33,7 @@ public class PaymentTests extends BaseTest {
                 .acceptTerms()
                 .placeOrder();
 
+        OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
         boolean isOrderSuccessful = orderReceivedPage.isOrderSuccessful();
         assertTrue(isOrderSuccessful, "The order was not successfully placed.");
     }
