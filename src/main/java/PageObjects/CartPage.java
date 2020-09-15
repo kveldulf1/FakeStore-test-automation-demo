@@ -13,15 +13,32 @@ public class CartPage extends BasePage {
 
     private WebDriverWait wait;
 
-    @FindBy(css = "tr.cart_item") private List<WebElement> productsInCartField;
-    @FindBy(css="form>.shop_table") private WebElement shopTable;
-    @FindBy(css="form>.shop_table") private List<WebElement> shopTables;
-    @FindBy(css="div.quantity>input") private WebElement productQuantityField;
-    @FindBy(css="button[name='update_cart']") private WebElement updateCartButton;
-    @FindBy(css="button[name='update_cart']") private WebElement loadingIcon;
-    @FindBy(css="a.remove") private WebElement removeProductFromCartButton;
-    @FindBy(css="p.cart-empty") private WebElement emptyCartMessageContainerField;
-    @FindBy(css="a.checkout-button") private WebElement checkoutButton;
+    @FindBy(css = "tr.cart_item")
+    private List<WebElement> productsInCartField;
+
+    @FindBy(css = "form>.shop_table")
+    private WebElement shopTable;
+
+    @FindBy(css = "form>.shop_table")
+    private List<WebElement> shopTables;
+
+    @FindBy(css = "div.quantity>input")
+    private WebElement productQuantityField;
+
+    @FindBy(css = "button[name='update_cart']")
+    private WebElement updateCartButton;
+
+    @FindBy(css = "button[name='update_cart']")
+    private WebElement loadingIcon;
+
+    @FindBy(css = "a.remove")
+    private WebElement removeProductFromCartButton;
+
+    @FindBy(css = "p.cart-empty")
+    private WebElement emptyCartMessageContainerField;
+
+    @FindBy(css = "a.checkout-button")
+    private WebElement checkoutButton;
 
     private String removeProductButtonCssSelector = "a[data-product_id='<product_id>']";
     private By loadingIconLocator = By.cssSelector(".blockOverlay");
@@ -78,7 +95,7 @@ public class CartPage extends BasePage {
 
     public boolean isCartEmpty() {
 
-        int shopTableElements = shopTables .size();
+        int shopTableElements = shopTables.size();
         if (shopTableElements == 1) {
             return false;
         } else if (shopTableElements == 0) {

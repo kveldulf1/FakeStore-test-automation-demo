@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-
     @Test
     public void buyOneProductWithoutAccountTest() {
 
@@ -94,6 +93,6 @@ public class PaymentTests extends BaseTest {
                 .getOrderStatus();
 
         assertEquals("Dziękujemy. Otrzymaliśmy Twoje zamówienie.",
-                orderStatus, "Failed to sign from payment page and to complete the order.");
+                orderStatus, "Failed to sign from payment page and to complete the order simultaneously.");
     }
 }
