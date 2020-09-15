@@ -44,13 +44,13 @@ public class CartTests extends BaseTest {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
-        String productsAmount = productPage
-                .setQuantityTo("10")
+        int productsAmount = productPage
+                .setQuantity(10)
                 .addToCart()
                 .viewCart()
-                .getQuantityValue();
+                .getProductQuantity();
 
-        assertEquals("10", productsAmount, "Attempt to add 10 products to cart was unsuccessful.");
+        assertEquals(10, productsAmount, "Attempt to add 10 products to cart was unsuccessful.");
     }
 
     @Test
@@ -76,9 +76,9 @@ public class CartTests extends BaseTest {
         int productsQuantity = productPage
                 .addToCart()
                 .viewCart()
-                .setQuantityValue(10)
+                .setQuantity(10)
                 .updateCart()
-                .waitForProccesingEnd()
+                .waitForProcessingEnd()
                 .getProductQuantity();
         assertTrue(productsQuantity == 10, "Actual products quantity in cart does not match expected quantity.");
     }

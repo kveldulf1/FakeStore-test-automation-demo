@@ -12,7 +12,7 @@ public class MyAccountPage extends BasePage {
     private By myOrdersButtonLocator = By.cssSelector("li.woocommerce-MyAccount-navigation-link--orders>a");
     private By deleteAccountButtonLocator = By.cssSelector("a.delete-me");
 
-    public MyAccountPage (WebDriver driver){
+    public MyAccountPage(WebDriver driver) {
 
         super(driver);
         wait = new WebDriverWait(driver, 10);
@@ -20,9 +20,8 @@ public class MyAccountPage extends BasePage {
 
     public MyOrdersPage goToMyOrders() {
 
-     wait.until(ExpectedConditions.elementToBeClickable(myOrdersButtonLocator)).click();
-
-        return new MyOrdersPage (driver);
+        wait.until(ExpectedConditions.elementToBeClickable(myOrdersButtonLocator)).click();
+        return new MyOrdersPage(driver);
     }
 
     public void deleteAccount() {

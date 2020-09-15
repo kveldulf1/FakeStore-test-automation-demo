@@ -27,6 +27,7 @@ public class TestDataReader extends FileReader {
         address = new Address(properties);
         contact = new Contact(properties);
         card = new Card(properties);
+        password = new Password(properties);
         categoryURL = properties.getProperty("category.url");
     }
 

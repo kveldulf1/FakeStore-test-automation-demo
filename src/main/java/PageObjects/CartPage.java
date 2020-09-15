@@ -24,7 +24,6 @@ public class CartPage extends BasePage {
 
         super(driver);
         wait = new WebDriverWait(driver, 5);
-
     }
 
     public int getProductQuantity() {
@@ -35,25 +34,14 @@ public class CartPage extends BasePage {
         return quantity;
     }
 
-    public String getQuantityValue() {
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.quantity>input")));
-        WebElement quantityInputAfterRefresh = driver.findElement(productQuantityFieldLocator);
-        By quantityInputAfterRefreshLocator = By.cssSelector("div.quantity>input");
-        wait.until(ExpectedConditions.presenceOfElementLocated(quantityInputAfterRefreshLocator));
-        return quantityInputAfterRefresh.getAttribute("value");
-
-    }
-
     public int getNumberOfProducts() {
 
         wait = new WebDriverWait(driver, 7);
         wait.until(ExpectedConditions.presenceOfElementLocated(shopTableLocator));
         return driver.findElements(productsInCartLocator).size();
-
     }
 
-    public CartPage setQuantityValue(int quantity) {
+    public CartPage setQuantity(int quantity) {
 
         wait.until(ExpectedConditions.elementToBeClickable(productQuantityFieldLocator));
         WebElement quantityInput = driver.findElement(productQuantityFieldLocator);
@@ -72,7 +60,7 @@ public class CartPage extends BasePage {
         return this;
     }
 
-    public CartPage waitForProccesingEnd() {
+    public CartPage waitForProcessingEnd() {
 
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
@@ -86,7 +74,6 @@ public class CartPage extends BasePage {
         wait.until(ExpectedConditions.presenceOfElementLocated(emptyCartMessageContainerLocator)).getText();
 
         return this;
-
     }
 
     public boolean isCartEmpty() {
@@ -101,7 +88,6 @@ public class CartPage extends BasePage {
         }
     }
 
-
     public CheckoutPage goToCheckOut() {
 
         wait.until(ExpectedConditions.elementToBeClickable(checkoutButtonLocator)).click();
@@ -109,7 +95,7 @@ public class CartPage extends BasePage {
         return new CheckoutPage(driver);
     }
 
-    public boolean isProductInCart(String productId) {
+        public boolean isProductInCart(String productId) {
         waitForShopTable();
         By removeProductLocator = By.cssSelector(removeProductButtonCssSelector.replace("<product_id>", productId));
         int productRecords = driver.findElements(removeProductLocator).size();
@@ -126,7 +112,6 @@ public class CartPage extends BasePage {
 
         WebDriverWait wait = new WebDriverWait(driver, 7);
         wait.until(ExpectedConditions.presenceOfElementLocated(shopTableLocator));
-
     }
 }
 

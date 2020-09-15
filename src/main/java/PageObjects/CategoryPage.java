@@ -36,7 +36,6 @@ public class CategoryPage extends BasePage {
 
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonLocator)).click();
         return this;
-
     }
 
     public CartPage viewCart() {

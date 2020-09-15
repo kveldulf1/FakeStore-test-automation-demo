@@ -38,16 +38,15 @@ public class ProductPage extends BasePage {
 
         wait.until(ExpectedConditions.elementToBeClickable(viewCartButtonLocator)).click();
         return new CartPage(driver);
-
     }
 
-    public ProductPage setQuantityTo(String quantity) {
+    public ProductPage setQuantity(int quantity) {
 
         wait.until(ExpectedConditions.elementToBeClickable(productQuantityFieldLocator));
         WebElement quantityInput = driver.findElement(productQuantityFieldLocator);
 
         quantityInput.clear();
-        quantityInput.sendKeys(String.valueOf(quantity));
+        quantityInput.sendKeys(Integer.toString(quantity));
 
         return this;
     }

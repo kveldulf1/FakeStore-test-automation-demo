@@ -41,7 +41,6 @@ public class CheckoutPage extends BasePage {
 
         super(driver);
         wait = new WebDriverWait(driver, 5);
-
     }
 
     public CheckoutPage fillOutValidDetails() {
@@ -78,7 +77,11 @@ public class CheckoutPage extends BasePage {
         driver.findElement(mobileNumberFieldLocator).sendKeys(mobileNumber);
 
         return this;
+    }
 
+    public CheckoutPage submitPersonalDetails(){
+
+        return this;
     }
 
     public CheckoutPage submitPaymentDetails() {
@@ -146,7 +149,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage typePassword(String password) {
-        wait.until(ExpectedConditions.elementToBeClickable(passwordFieldLocator)).sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(setPasswordFieldLocator)).sendKeys(password);
         return this;
     }
 
@@ -179,7 +182,7 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage acceptTerms() {
 
         driver.switchTo().defaultContent();
-        waitForProccesingEnd();
+        waitForProcessingEnd();
         driver.findElement(acceptTermsLocator).click();
 
         return this;
@@ -194,7 +197,7 @@ public class CheckoutPage extends BasePage {
         return new OrderReceivedPage(driver);
     }
 
-    public CheckoutPage waitForProccesingEnd() {
+    public CheckoutPage waitForProcessingEnd() {
 
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
