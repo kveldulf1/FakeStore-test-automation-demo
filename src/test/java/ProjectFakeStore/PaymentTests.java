@@ -93,6 +93,6 @@ public class PaymentTests extends BaseTest {
                 .getOrderStatus();
 
         assertEquals("Dziękujemy. Otrzymaliśmy Twoje zamówienie.",
-                orderStatus, "Failed to sign from payment page and to complete the order simultaneously.");
+                orderStatus, "Failed to sign in from payment page and to complete the order simultaneously.");
     }
 }
