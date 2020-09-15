@@ -3,6 +3,7 @@ package PageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,31 +12,74 @@ public class CheckoutPage extends BasePage {
 
     private WebDriverWait wait;
 
-    private By nameFieldLocator = By.cssSelector("input[name='billing_first_name']");
-    private By lastNameFieldLocator = By.cssSelector("input[name='billing_last_name']");
-    private By mobileNumberFieldLocator = By.cssSelector("input#billing_phone");
-    private By countryCodeArrowLocator = By.cssSelector(".select2-selection__arrow");
-    private String countryCodeCssSelector = "li[id*='-<country_code>']";
-    private By cityFieldLocator = By.cssSelector("input#billing_city");
-    private By postcodeFieldLocator = By.cssSelector("input#billing_postcode");
-    private By billingAddressFieldLocator = By.cssSelector("input#billing_address_1");
-    private By emailFieldLocator = By.cssSelector("input#billing_email");
-    private By cardNumberInputLocator = By.cssSelector("input[name='cardnumber']");
-    private By cardCVCFieldLocator = By.cssSelector("input[name='cvc']");
-    private By cardExpDateFieldLocator = By.cssSelector("input[name='exp-date']");
-    private By acceptTermsLocator = By.cssSelector("input#terms");
-    private By placeOrderButtonLocator = By.cssSelector("button#place_order");
-    private By loadingIconLocator = By.cssSelector(".blockOverlay");
-    private By cvcFieldFrameLocator = By.cssSelector("[name='__privateStripeFrame10']");
-    private By expirationDateFrameLocator = By.cssSelector("[name='__privateStripeFrame9']");
-    private By cardNumberFrameLocator = By.cssSelector("[name='__privateStripeFrame8']");
-    private By createAccountCheckboxLocator = By.cssSelector("input#createaccount");
-    private By setPasswordFieldLocator = By.cssSelector("input#account_password");
-    private By signInButtonLocator = By.cssSelector("a.showlogin");
-    private By usernameFieldLocator = By.cssSelector("input#username");
-    private By passwordFieldLocator = By.cssSelector("input#password");
-    private By logInButttonLocator = By.cssSelector("button.woocommerce-form-login__submit");
+    @FindBy(css = "input[name='billing_first_name']")
+    private WebElement firstNameField;
 
+    @FindBy(css = "input[name='billing_last_name']")
+    private WebElement lastNameField;
+
+    @FindBy(css = "input#billing_phone")
+    private WebElement mobileNumberField;
+
+    @FindBy(css = ".select2-selection__arrow")
+    private WebElement countryCodeArrow;
+
+    @FindBy(css = "input#billing_city")
+    private WebElement cityField;
+
+    @FindBy(css = "input#billing_postcode")
+    private WebElement postCodeField;
+
+    @FindBy(css = "input#billing_address_1")
+    private WebElement billingAddressField;
+
+    @FindBy(css = "input#billing_email")
+    private WebElement emailField;
+
+    @FindBy(css = "input[name='cardnumber']")
+    private WebElement cardNumberField;
+
+    @FindBy(css = "input[name='cvc']")
+    private WebElement cardCvcField;
+
+    @FindBy(css = "input[name='exp-date']")
+    private WebElement cardExpDateField;
+
+    @FindBy(css = "input#terms")
+    private WebElement acceptTermsCheckbox;
+
+    @FindBy(css = "button#place_order")
+    private WebElement placeOrderButton;
+
+    @FindBy(css = "[name='__privateStripeFrame10']")
+    private WebElement cvcFieldFrame;
+
+    @FindBy(css = "[name='__privateStripeFrame9']")
+    private WebElement expDateFieldFrame;
+
+    @FindBy(css = "[name='__privateStripeFrame8']")
+    private WebElement cardNumberFieldFrame;
+
+    @FindBy(css = "input#createaccount")
+    private WebElement createAccountCheckbox;
+
+    @FindBy(css = "input#account_password")
+    private WebElement setPasswordField;
+
+    @FindBy(css = "a.showlogin")
+    private WebElement signInButton;
+
+    @FindBy(css = "input#username")
+    private WebElement usernameField;
+
+    @FindBy(css = "input#password")
+    private WebElement passwordField;
+
+    @FindBy(css = "button.woocommerce-form-login__submit")
+    private WebElement logInButton;
+
+    private String countryCodeCssSelector = "li[id*='-<country_code>']";
+    private By loadingIconLocator = By.cssSelector(".blockOverlay");
 
     public CheckoutPage(WebDriver driver) {
 
@@ -53,8 +97,8 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage enterEmail(String email) {
 
-        driver.findElement(emailFieldLocator).clear();
-        driver.findElement(emailFieldLocator).sendKeys(email);
+        emailField.clear();
+        emailField.sendKeys(email);
 
         return this;
     }
@@ -62,118 +106,108 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage fillOutRegistrationDetails(String firstName, String lastName, String email,
                                                    String street, String postCode, String city, String mobileNumber) {
 
-        driver.findElement(nameFieldLocator).sendKeys(firstName);
-        driver.findElement(lastNameFieldLocator).sendKeys(lastName);
-        driver.findElement(emailFieldLocator).clear();
-        driver.findElement(emailFieldLocator).sendKeys(email);
+        firstNameField.sendKeys(firstName);
+        lastNameField.sendKeys(lastName);
+        emailField.clear();
+        emailField.sendKeys(email);
 
         WebElement countrySelectionDropdown = driver.findElement(By.id("billing_country"));
         Select country = new Select(countrySelectionDropdown);
         country.selectByValue("PL");
 
-        driver.findElement(billingAddressFieldLocator).sendKeys(street);
-        driver.findElement(postcodeFieldLocator).sendKeys(postCode);
-        driver.findElement(cityFieldLocator).sendKeys(city);
-        driver.findElement(mobileNumberFieldLocator).sendKeys(mobileNumber);
+        billingAddressField.sendKeys(street);
+        postCodeField.sendKeys(postCode);
+        cityField.sendKeys(city);
+        mobileNumberField.sendKeys(mobileNumber);
 
         return this;
     }
-
-//    public CheckoutPage submitPersonalDetails(){
-
-  //      return this;
-    //}
 
     public CheckoutPage submitPaymentDetails() {
 
-        WebElement cardNumberInputFrame = driver.findElement(cardNumberFrameLocator);
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberInputFrame));
-        wait.until(ExpectedConditions.elementToBeClickable(cardNumberInputLocator)).sendKeys("4242424242424242");
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFieldFrame));
+        wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys("4242424242424242");
 
         driver.switchTo().defaultContent();
 
-        WebElement expirationDateFrame = driver.findElement(expirationDateFrameLocator);
-        driver.switchTo().frame(expirationDateFrame);
-        wait.until(ExpectedConditions.elementToBeClickable(cardExpDateFieldLocator)).sendKeys("02/23");
+        driver.switchTo().frame(expDateFieldFrame);
+        wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys("02/23");
 
         driver.switchTo().defaultContent();
 
-        WebElement cvcFieldFrame = driver.findElement(cvcFieldFrameLocator);
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
-        wait.until(ExpectedConditions.elementToBeClickable(cardCVCFieldLocator)).sendKeys("311");
+        wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys("311");
 
         return this;
     }
 
-    public CheckoutPage typeName(String name) {
-        wait.until(ExpectedConditions.elementToBeClickable(nameFieldLocator)).sendKeys(name);
+    public CheckoutPage typeFirstName(String name) {
+        wait.until(ExpectedConditions.elementToBeClickable(firstNameField)).sendKeys(name);
         return this;
     }
 
     public CheckoutPage typeLastName(String lastName) {
-        wait.until(ExpectedConditions.elementToBeClickable(lastNameFieldLocator)).sendKeys(lastName);
+        wait.until(ExpectedConditions.elementToBeClickable(lastNameField)).sendKeys(lastName);
         return this;
     }
 
     public CheckoutPage chooseCountry(String countryCode) {
-        wait.until(ExpectedConditions.elementToBeClickable(countryCodeArrowLocator)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(countryCodeArrow)).click();
         By countryCodeLocator = By.cssSelector(countryCodeCssSelector.replace("<country_code>", countryCode));
         wait.until(ExpectedConditions.elementToBeClickable(countryCodeLocator)).click();
         return this;
     }
 
     public CheckoutPage typeAddress(String address) {
-        wait.until(ExpectedConditions.elementToBeClickable(billingAddressFieldLocator)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(billingAddressFieldLocator)).sendKeys(address);
+        wait.until(ExpectedConditions.elementToBeClickable(billingAddressField)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(billingAddressField)).sendKeys(address);
         return this;
     }
 
     public CheckoutPage typePostalCode(String postalCode) {
-        wait.until(ExpectedConditions.elementToBeClickable(postcodeFieldLocator)).sendKeys(postalCode);
+        wait.until(ExpectedConditions.elementToBeClickable(postCodeField)).sendKeys(postalCode);
         return this;
     }
 
     public CheckoutPage typeCity(String city) {
-        wait.until(ExpectedConditions.elementToBeClickable(cityFieldLocator)).sendKeys(city);
+        wait.until(ExpectedConditions.elementToBeClickable(cityField)).sendKeys(city);
         return this;
     }
 
     public CheckoutPage typePhone(String phone) {
-        wait.until(ExpectedConditions.elementToBeClickable(mobileNumberFieldLocator)).sendKeys(phone);
+        wait.until(ExpectedConditions.elementToBeClickable(mobileNumberField)).sendKeys(phone);
         return this;
     }
 
     public CheckoutPage typeEmail(String emailAddress) {
-        wait.until(ExpectedConditions.elementToBeClickable(emailFieldLocator)).sendKeys(emailAddress);
+        wait.until(ExpectedConditions.elementToBeClickable(emailField)).sendKeys(emailAddress);
         return this;
     }
 
     public CheckoutPage typePassword(String password) {
-        wait.until(ExpectedConditions.elementToBeClickable(setPasswordFieldLocator)).sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(setPasswordField)).sendKeys(password);
         return this;
     }
 
     public CheckoutPage typeCardNumber(String cardNumber) {
-        WebElement cardNumberInputFrame = driver.findElement(cardNumberFrameLocator);
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberInputFrame));
-        wait.until(ExpectedConditions.elementToBeClickable(cardNumberInputLocator)).sendKeys(cardNumber);
+
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFieldFrame));
+        wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys(cardNumber);
         driver.switchTo().defaultContent();
         return this;
     }
 
     public CheckoutPage typeCardExpirationDate(String expirationDate) {
 
-        WebElement expirationDateFrame = driver.findElement(expirationDateFrameLocator);
-        driver.switchTo().frame(expirationDateFrame);
-        wait.until(ExpectedConditions.elementToBeClickable(cardExpDateFieldLocator)).sendKeys(expirationDate);
+        driver.switchTo().frame(expDateFieldFrame);
+        wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys(expirationDate);
         driver.switchTo().defaultContent();
         return this;
     }
 
     public CheckoutPage typeCvcCode(String cvcCode) {
-        WebElement cvcFieldFrame = driver.findElement(cvcFieldFrameLocator);
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
-        wait.until(ExpectedConditions.elementToBeClickable(cardCVCFieldLocator)).sendKeys(cvcCode);
+        wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys(cvcCode);
         driver.switchTo().defaultContent();
         return this;
     }
@@ -183,17 +217,15 @@ public class CheckoutPage extends BasePage {
 
         driver.switchTo().defaultContent();
         waitForProcessingEnd();
-        driver.findElement(acceptTermsLocator).click();
-
+        acceptTermsCheckbox.click();
         return this;
     }
 
     public OrderReceivedPage placeOrder() {
 
-        driver.findElement(placeOrderButtonLocator).submit();
+        placeOrderButton.submit();
         wait = new WebDriverWait(driver, 15);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
-
         return new OrderReceivedPage(driver);
     }
 
@@ -201,49 +233,42 @@ public class CheckoutPage extends BasePage {
 
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
-
         return this;
     }
 
     public CheckoutPage createNewAccount() {
 
-        wait.until(ExpectedConditions.elementToBeClickable(createAccountCheckboxLocator)).click();
-
+        wait.until(ExpectedConditions.elementToBeClickable(createAccountCheckbox)).click();
         return this;
     }
 
     public CheckoutPage setPassword(String password) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(setPasswordFieldLocator)).sendKeys(password);
-
+        wait.until(ExpectedConditions.elementToBeClickable(setPasswordField)).sendKeys(password);
         return this;
     }
 
     public CheckoutPage goToSignInSection() {
 
-        driver.findElement(signInButtonLocator).click();
-
+        signInButton.click();
         return this;
     }
 
     public CheckoutPage enterUserName(String userName) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(usernameFieldLocator)).sendKeys(userName);
-
+        wait.until(ExpectedConditions.elementToBeClickable(usernameField)).sendKeys(userName);
         return this;
     }
 
     public CheckoutPage enterPassword(String password) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(passwordFieldLocator)).sendKeys(password);
-
+        wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(password);
         return this;
     }
 
     public CheckoutPage useLogInButton() {
 
-        driver.findElement(logInButttonLocator).click();
-
+        logInButton.click();
         return this;
     }
 }

@@ -29,7 +29,6 @@ public class CategoryPage extends BasePage {
 
     private By categoryViewCartButtonLocator = By.cssSelector("a[title='Zobacz koszyk']");
 
-
     public CategoryPage(WebDriver driver) {
         super(driver);
         header = new HeaderPage(driver);

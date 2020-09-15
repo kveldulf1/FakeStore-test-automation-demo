@@ -3,6 +3,7 @@ package PageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,9 +20,14 @@ public class ProductPage extends BasePage {
         demoNotice = new DemoFooterPage(driver);
     }
 
-    private By viewCartButtonLocator = By.cssSelector(".woocommerce-message>.button");
-    private By addToCartButtonLocator = By.cssSelector("button[name='add-to-cart']");
-    private By productQuantityFieldLocator = By.cssSelector("input.qty");
+    @FindBy(css = ".woocommerce-message>.button")
+    private WebElement viewCartButton;
+
+    @FindBy(css = "button[name='add-to-cart']")
+    private WebElement addToCartButton;
+
+    @FindBy(css = "div.quantity>input")
+    private WebElement productQuantityField;
 
     public ProductPage goTo(String url) {
         driver.navigate().to(url);
@@ -30,24 +36,21 @@ public class ProductPage extends BasePage {
 
     public ProductPage addToCart() {
 
-        wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonLocator)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
         return this;
     }
 
     public CartPage viewCart() {
 
-        wait.until(ExpectedConditions.elementToBeClickable(viewCartButtonLocator)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(viewCartButton)).click();
         return new CartPage(driver);
     }
 
     public ProductPage setQuantity(int quantity) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(productQuantityFieldLocator));
-        WebElement quantityInput = driver.findElement(productQuantityFieldLocator);
-
-        quantityInput.clear();
-        quantityInput.sendKeys(Integer.toString(quantity));
-
+        wait.until(ExpectedConditions.elementToBeClickable(productQuantityField));
+        productQuantityField.clear();
+        productQuantityField.sendKeys(Integer.toString(quantity));
         return this;
     }
 }
