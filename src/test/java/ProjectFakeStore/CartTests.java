@@ -20,7 +20,7 @@ public class CartTests extends BaseTest {
                 .viewCart()
                 .isProductInCart(testData.getProduct().getId());
 
-        assertTrue(isProductInCart, "Remove button was not found for a product with id = " + testData.getProduct().getId() + ". "
+        assertTrue(!isProductInCart, "Remove button was not found for a product with id = " + testData.getProduct().getId() + ". "
                 + "Was the product added to cart?");
     }
 
