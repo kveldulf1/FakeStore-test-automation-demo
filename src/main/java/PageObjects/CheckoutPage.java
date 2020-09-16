@@ -113,7 +113,7 @@ public class CheckoutPage extends BasePage {
 
         WebElement countrySelectionDropdown = driver.findElement(By.id("billing_country"));
         Select country = new Select(countrySelectionDropdown);
-        country.selectByValue("PL");
+        country.selectByValue("IS");
 
         billingAddressField.sendKeys(street);
         postCodeField.sendKeys(postCode);
@@ -181,6 +181,7 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeEmail(String emailAddress) {
         wait.until(ExpectedConditions.elementToBeClickable(emailField)).sendKeys(emailAddress);
+        waitForProcessingEnd();
         return this;
     }
 
@@ -206,6 +207,8 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage typeCvcCode(String cvcCode) {
+
+        waitForProcessingEnd();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys(cvcCode);
         driver.switchTo().defaultContent();
@@ -240,12 +243,7 @@ public class CheckoutPage extends BasePage {
 
         wait.until(ExpectedConditions.elementToBeClickable(createAccountCheckbox)).click();
         return this;
-    }
 
-    public CheckoutPage setPassword(String password) {
-
-        wait.until(ExpectedConditions.elementToBeClickable(setPasswordField)).sendKeys(password);
-        return this;
     }
 
     public CheckoutPage goToSignInSection() {

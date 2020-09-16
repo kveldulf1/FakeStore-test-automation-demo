@@ -55,10 +55,11 @@ public class BaseTest {
     }
 
     private String takeScreenshot(TestInfo info) throws IOException {
+
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         LocalDateTime timeNow = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
-        String path = "C:\\Users\\mkownacki1\\Documents\\Testelka\\screenshots\\" + info.getDisplayName() + " " + formatter.format(timeNow) + ".png";
+        String path = "C:\\screenshots\\" + info.getDisplayName() + " " + formatter.format(timeNow) + ".png";
         FileHandler.copy(screenshot, new File(path));
         return path;
     }

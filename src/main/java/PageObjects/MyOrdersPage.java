@@ -1,6 +1,5 @@
 package PageObjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +20,6 @@ public class MyOrdersPage extends BasePage {
 
     public MyOrdersPage(WebDriver driver) {
         super(driver);
-
     }
 
     public int getNumberOfRows() {
@@ -32,8 +30,6 @@ public class MyOrdersPage extends BasePage {
     public MyAccountPage goToMyAccount() {
 
         wait.until(ExpectedConditions.elementToBeClickable(myAccountButton)).click();
-
         return new MyAccountPage(driver);
-
     }
 }

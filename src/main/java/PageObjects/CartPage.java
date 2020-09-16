@@ -35,7 +35,7 @@ public class CartPage extends BasePage {
     private WebElement removeProductFromCartButton;
 
     @FindBy(css = "p.cart-empty")
-    private WebElement emptyCartMessageContainerField;
+    private WebElement emptyCartMessageContainer;
 
     @FindBy(css = "a.checkout-button")
     private WebElement checkoutButton;
@@ -67,7 +67,7 @@ public class CartPage extends BasePage {
 
     public CartPage setQuantity(int quantity) {
 
-        productQuantityField.clear();
+        wait.until(ExpectedConditions.elementToBeClickable(productQuantityField)).clear();
         productQuantityField.sendKeys(Integer.toString(quantity));
         return this;
     }
@@ -89,7 +89,7 @@ public class CartPage extends BasePage {
     public CartPage removeProduct() {
 
         wait.until(ExpectedConditions.elementToBeClickable(removeProductFromCartButton)).click();
-        wait.until(ExpectedConditions.visibilityOf(emptyCartMessageContainerField)).getText();
+        wait.until(ExpectedConditions.visibilityOf(emptyCartMessageContainer)).getText();
         return this;
     }
 
