@@ -37,7 +37,7 @@ public class DriverFactory {
     private WebDriver getChromeDriver(ConfigurationReader configuration) {
 
         ChromeOptions options = new ChromeOptions();
-        options.setCapability(CapabilityType.VERSION, "84");        // check against nodeconfiguration.json
+        options.setCapability(CapabilityType.VERSION, "85");        // check against nodeconfiguration.json
 
         return getDriver(options, configuration);
     }
@@ -51,6 +51,5 @@ public class DriverFactory {
             System.out.println(e + "was thrown. HubUrl in the configuration file is incorrect or missing. Check the configuration file: " + configuration.getConfigurationLocation()) ;
         }
         return driver;
-
     }
 }

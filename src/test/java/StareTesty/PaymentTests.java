@@ -3,6 +3,7 @@ package StareTesty;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -105,7 +106,7 @@ public class PaymentTests {
         deleteMyAccount();
     }
 
-    @Test
+    @RepeatedTest(10)
     public void paymentPageSignInAndPayTest() {
 
         selectProductAndGoToPaymentPage();

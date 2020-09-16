@@ -52,13 +52,13 @@ public class CheckoutPage extends BasePage {
     private WebElement placeOrderButton;
 
     @FindBy(css = "[name='__privateStripeFrame10']")
-    private WebElement cvcFieldFrame;
+    private WebElement cardCvcFrame;
 
     @FindBy(css = "[name='__privateStripeFrame9']")
-    private WebElement expDateFieldFrame;
+    private WebElement cardExpDateFrame;
 
     @FindBy(css = "[name='__privateStripeFrame8']")
-    private WebElement cardNumberFieldFrame;
+    private WebElement cardNumberFrame;
 
     @FindBy(css = "input#createaccount")
     private WebElement createAccountCheckbox;
@@ -85,14 +85,6 @@ public class CheckoutPage extends BasePage {
 
         super(driver);
         wait = new WebDriverWait(driver, 5);
-    }
-
-    public CheckoutPage fillOutValidDetails() {
-
-        fillOutRegistrationDetails("Egill", "Skallagrimsson", "thorolf@postur.is",
-                "Kveldulfsvegur", "11-123", "Mosfell", "600321666");
-
-        return this;
     }
 
     public CheckoutPage enterEmail(String email) {
@@ -125,33 +117,34 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage submitPaymentDetails() {
 
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFieldFrame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys("4242424242424242");
 
         driver.switchTo().defaultContent();
-
-        driver.switchTo().frame(expDateFieldFrame);
+        driver.switchTo().frame(cardExpDateFrame);
         wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys("02/23");
 
         driver.switchTo().defaultContent();
-
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardCvcFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys("311");
 
         return this;
     }
 
     public CheckoutPage typeFirstName(String name) {
+
         wait.until(ExpectedConditions.elementToBeClickable(firstNameField)).sendKeys(name);
         return this;
     }
 
     public CheckoutPage typeLastName(String lastName) {
+
         wait.until(ExpectedConditions.elementToBeClickable(lastNameField)).sendKeys(lastName);
         return this;
     }
 
     public CheckoutPage chooseCountry(String countryCode) {
+
         wait.until(ExpectedConditions.elementToBeClickable(countryCodeArrow)).click();
         By countryCodeLocator = By.cssSelector(countryCodeCssSelector.replace("<country_code>", countryCode));
         wait.until(ExpectedConditions.elementToBeClickable(countryCodeLocator)).click();
@@ -159,40 +152,45 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage typeAddress(String address) {
+
         wait.until(ExpectedConditions.elementToBeClickable(billingAddressField)).click();
         wait.until(ExpectedConditions.elementToBeClickable(billingAddressField)).sendKeys(address);
         return this;
     }
 
     public CheckoutPage typePostalCode(String postalCode) {
+
         wait.until(ExpectedConditions.elementToBeClickable(postCodeField)).sendKeys(postalCode);
         return this;
     }
 
     public CheckoutPage typeCity(String city) {
+
         wait.until(ExpectedConditions.elementToBeClickable(cityField)).sendKeys(city);
         return this;
     }
 
     public CheckoutPage typePhone(String phone) {
+
         wait.until(ExpectedConditions.elementToBeClickable(mobileNumberField)).sendKeys(phone);
         return this;
     }
 
     public CheckoutPage typeEmail(String emailAddress) {
+
         wait.until(ExpectedConditions.elementToBeClickable(emailField)).sendKeys(emailAddress);
-        waitForProcessingEnd();
         return this;
     }
 
     public CheckoutPage typePassword(String password) {
+
         wait.until(ExpectedConditions.elementToBeClickable(setPasswordField)).sendKeys(password);
         return this;
     }
 
     public CheckoutPage typeCardNumber(String cardNumber) {
 
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFieldFrame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys(cardNumber);
         driver.switchTo().defaultContent();
         return this;
@@ -200,7 +198,7 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeCardExpirationDate(String expirationDate) {
 
-        driver.switchTo().frame(expDateFieldFrame);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardExpDateFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys(expirationDate);
         driver.switchTo().defaultContent();
         return this;
@@ -208,18 +206,15 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeCvcCode(String cvcCode) {
 
-        waitForProcessingEnd();
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cvcFieldFrame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardCvcFrame));
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys(cvcCode);
         driver.switchTo().defaultContent();
         return this;
     }
 
-
     public CheckoutPage acceptTerms() {
 
         driver.switchTo().defaultContent();
-        waitForProcessingEnd();
         acceptTermsCheckbox.click();
         return this;
     }
@@ -232,18 +227,10 @@ public class CheckoutPage extends BasePage {
         return new OrderReceivedPage(driver);
     }
 
-    public CheckoutPage waitForProcessingEnd() {
-
-        wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
-        return this;
-    }
-
     public CheckoutPage createNewAccount() {
 
         wait.until(ExpectedConditions.elementToBeClickable(createAccountCheckbox)).click();
         return this;
-
     }
 
     public CheckoutPage goToSignInSection() {

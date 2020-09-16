@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-    @RepeatedTest(3)
-    public void buyOneProductWithoutAccountTest() {
+    @RepeatedTest(10)
+    public void buyOneProductWithoutAccountTest() throws InterruptedException {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
@@ -39,7 +39,7 @@ public class PaymentTests extends BaseTest {
     }
 
     @RepeatedTest(3)
-    public void buyOneProductAndSignUpTest() {
+    public void buyOneProductAndSignUpTest(){
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
