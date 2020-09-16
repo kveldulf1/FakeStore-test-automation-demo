@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) // a new test instance of a test class will be created once per class
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-public class BaseTest {
+public abstract class BaseTest {
 
     protected WebDriver driver;
     protected ConfigurationReader configuration;

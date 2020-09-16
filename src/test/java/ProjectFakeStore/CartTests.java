@@ -3,7 +3,6 @@ package ProjectFakeStore;
 import PageObjects.CategoryPage;
 import PageObjects.ProductPage;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests extends BaseTest {
 
-    @RepeatedTest(3)
+    @Test
     public void addOneProductToCartFromProductPageTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -25,7 +24,7 @@ public class CartTests extends BaseTest {
                 + testData.getProduct().getId() + ". " + "Was the product added to cart?");
     }
 
-    @RepeatedTest(3)
+    @Test
     public void addOneProductFromCategoryPageTest() {
 
         CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + testData.getCategoryURL());
@@ -40,7 +39,7 @@ public class CartTests extends BaseTest {
                 "Failed to add one product to cart from category page.");
     }
 
-    @RepeatedTest(3)
+    @Test
     public void addTenIdenticalProductsToCartTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -54,7 +53,7 @@ public class CartTests extends BaseTest {
         assertEquals(10, productsAmount, "Attempt to add 10 products to cart was unsuccessful.");
     }
 
-    @RepeatedTest(3)
+    @Test
     public void addFiveDifferentProductsToCartTest() {
 
         CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + testData.getCategoryURL());
@@ -68,7 +67,7 @@ public class CartTests extends BaseTest {
         assertEquals(5, numberOfProducts, "The quantity of products in cart is not as expected.");
     }
 
-    @RepeatedTest(3)
+    @Test
     public void changeQuantityOfProductsAddedToCartTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -84,7 +83,7 @@ public class CartTests extends BaseTest {
         assertTrue(productsQuantity == 10, "Actual products quantity in cart does not match expected quantity.");
     }
 
-    @RepeatedTest(3)
+    @Test
     public void removeProductFromCartTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
