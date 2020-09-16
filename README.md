@@ -1,5 +1,5 @@
 # FakeStore-test-automation-demo
-My test automation demo project with usage of Java, Selenium, Selenium and JUnit.
+My test automation demo project with usage of Java, Selenium and JUnit.
 
 Please keep in mind that the project uses Selenium Grid and it is necessary to start the hub and node prior to test execution.
 In order to do so, please take these steps:
