@@ -80,6 +80,7 @@ public class CartTests extends BaseTest {
                 .updateCart()
                 .waitForProcessingEnd()
                 .getProductQuantityField();
+
         assertTrue(productsQuantity == 10, "Actual products quantity in cart does not match expected quantity.");
     }
 

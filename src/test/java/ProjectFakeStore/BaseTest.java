@@ -48,6 +48,7 @@ public abstract class BaseTest {
 
     @AfterEach
     public void driverQuit(TestInfo info) throws IOException {
+
         if (status.isFailed) {
             System.out.println("Test screenshot is available at: " + takeScreenshot(info));
         }
