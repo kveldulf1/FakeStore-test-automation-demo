@@ -33,7 +33,7 @@ The unique test data are hardcoded into tests which that require them in order t
 * If a test result will be different than 'passed' then properly laballed screenshot will be taken and saved locally in your C:\screenshots\ folder.
 
 To-do list:
-* More tests are to be added
+* More tests are to be added.
 * Aleternative project version which will allow potential interested persons to execute tests locally without the need to set up the Selenium Server.
 
 ## Status
