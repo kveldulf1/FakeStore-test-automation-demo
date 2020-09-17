@@ -14,10 +14,10 @@ The purpose of this project is to develop skills in functional tests' automation
 ## Setup
 Please keep in mind that the project uses Selenium Grid and it is necessary to start the hub and node prior to test execution. In order to do so, please undertake following steps:
 
-1. Download and unpack the SeleniumServer.rar file to C:\SeleniumServer\.  
+1. Download and unpack the SeleniumServer.rar file to C:\SeleniumServer\\.  
 2. Run starthub.bat file.  
 3. Run startnode.bat file.  
-4. Create the folder 'screenshots' in C:\.
+4. Create the folder 'screenshots' in C:\\.
 	
 Now you're good to go with tests execution.
 
