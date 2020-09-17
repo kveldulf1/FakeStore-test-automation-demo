@@ -6,7 +6,7 @@ The purpose of this project is to develop skills in functional tests' automation
  would like to push further my career to become a test developer.
 
 ## Technologies
-* Java - version 10
+* Java - version 10.0.2
 * Selenium - version 3.141.59
 * JUnit - version 5.2.0
 * Maven
