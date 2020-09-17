@@ -30,7 +30,7 @@ The project is compatible with Chrome and Firefox, tests are being executed with
 * Test data is located in TestData.properties, you can perform tests with different test data without need to edit the code. Please note that this applies to the tests that do not require specific pre-conditions such as unique test data. 
 The unique test data are hardcoded into tests which require them in order to verify certain functionalities of the application.
 * You can run tests on Chrome or Firefox, just change the browser's value in Configuration.properties in order to execute tests the browser of your choice.
-* If a test result will be different than 'passed' then properly laballed screenshot will be taken and saved locally in your C:\screenshots\ folder.
+* If a test result will be different than 'passed' then properly labelled screenshot will be taken and saved locally in your C:\screenshots\ folder.
 
 To-do list:
 * More tests are to be added.
