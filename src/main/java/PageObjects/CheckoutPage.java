@@ -51,15 +51,6 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = "button#place_order")
     private WebElement placeOrderButton;
 
-    @FindBy(css = "[name='__privateStripeFrame10']")
-    private WebElement cardCvcFrame;
-
-    @FindBy(css = "[name='__privateStripeFrame9']")
-    private WebElement cardExpDateFrame;
-
-    @FindBy(css = "[name='__privateStripeFrame8']")
-    private WebElement cardNumberFrame;
-
     @FindBy(css = "input#createaccount")
     private WebElement createAccountCheckbox;
 
@@ -117,15 +108,15 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage submitPaymentDetails() {
 
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFrame));
+        driver.switchTo().frame(0);
         wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys("4242424242424242");
 
         driver.switchTo().defaultContent();
-        driver.switchTo().frame(cardExpDateFrame);
+        driver.switchTo().frame(1);
         wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys("02/23");
 
         driver.switchTo().defaultContent();
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardCvcFrame));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(2));
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys("311");
 
         return this;
@@ -190,15 +181,17 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeCardNumber(String cardNumber) {
 
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFrame));
+        driver.switchTo().frame(0);
         wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys(cardNumber);
         driver.switchTo().defaultContent();
+
+
         return this;
     }
 
     public CheckoutPage typeCardExpirationDate(String expirationDate) {
 
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardExpDateFrame));
+        driver.switchTo().frame(1);
         wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys(expirationDate);
         driver.switchTo().defaultContent();
         return this;
@@ -206,7 +199,7 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeCvcCode(String cvcCode) {
 
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardCvcFrame));
+        driver.switchTo().frame(2);
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys(cvcCode);
         driver.switchTo().defaultContent();
         return this;
