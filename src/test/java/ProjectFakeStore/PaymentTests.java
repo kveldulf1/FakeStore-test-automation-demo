@@ -34,6 +34,7 @@ public class PaymentTests extends BaseTest {
 
         OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
         boolean isOrderSuccessful = orderReceivedPage.isOrderSuccessful();
+
         assertTrue(isOrderSuccessful, "The order was not successfully placed.");
     }
 
