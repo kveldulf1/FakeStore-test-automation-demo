@@ -26,7 +26,7 @@ public class PaymentTests extends BaseTest {
                 .typeCity(testData.getAddress().getCity())
                 .typePhone(testData.getContact().getPhone())
                 .typeEmail(testData.getContact().getEmail())
-                .typeCardNumber(testData.getCard().getNumber())
+                .typeCardNumber(testData.getCard().getNumber()) // Due to a Selenium bug, PaymentTests are not working properly with Firefox
                 .typeCardExpirationDate(testData.getCard().getExpirationDate())
                 .typeCvcCode(testData.getCard().getCvc())
                 .acceptTerms()
@@ -55,7 +55,7 @@ public class PaymentTests extends BaseTest {
                 .typeCity(testData.getAddress().getCity())
                 .typePhone(testData.getContact().getPhone())
                 .typeEmail(testData.getContact().getEmail())
-                .typeCardNumber(testData.getCard().getNumber())
+                .typeCardNumber(testData.getCard().getNumber()) // Due to a Selenium bug, PaymentTests are not working properly with Firefox
                 .typeCardExpirationDate(testData.getCard().getExpirationDate())
                 .typeCvcCode(testData.getCard().getCvc())
                 .createNewAccount()
@@ -87,7 +87,7 @@ public class PaymentTests extends BaseTest {
                 .enterPassword("ComplicatedPassword720!")
                 .useLogInButton()
                 .enterEmail("kveldulf@postur.is")
-                .submitPaymentDetails()
+                .submitPaymentDetails() // Due to a Selenium bug, PaymentTests are not working properly with Firefox
                 .acceptTerms()
                 .placeOrder()
                 .getOrderStatus();
