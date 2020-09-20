@@ -69,8 +69,18 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = "button.woocommerce-form-login__submit")
     private WebElement logInButton;
 
+    @FindBy(css = "ul.woocommerce-error")
+    private WebElement errorList;
+
     private String countryCodeCssSelector = "li[id*='-<country_code>']";
     private By loadingIconLocator = By.cssSelector(".blockOverlay");
+    private String nameErrorMessage = "Imię płatnika jest wymaganym polem.";
+    private String lastNameErrorMessage = "Nazwisko płatnika jest wymaganym polem.";
+    private String streetErrorMessage = "Ulica płatnika jest wymaganym polem.";
+    private String zipCodeErrorMessage = "Kod pocztowy płatnika jest wymaganym polem.";
+    private String cityErrorMessage = "Miasto płatnika jest wymaganym polem.";
+    private String phoneNumberErrorMessage = "Telefon płatnika jest wymaganym polem.";
+    private String emailErrorMEssage = "Adres email płatnika jest wymaganym polem.";
 
     public CheckoutPage(WebDriver driver) {
 
@@ -85,23 +95,20 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage fillOutRegistrationDetails(String firstName, String lastName, String email,
-                                                   String street, String postCode, String city, String mobileNumber) {
+    public CheckoutPage fillOutPersonalData(String firstName, String lastName, String email,
+                                            String street, String postCode, String city, String mobileNumber) {
 
         firstNameField.sendKeys(firstName);
         lastNameField.sendKeys(lastName);
         emailField.clear();
         emailField.sendKeys(email);
-
         WebElement countrySelectionDropdown = driver.findElement(By.id("billing_country"));
         Select country = new Select(countrySelectionDropdown);
         country.selectByValue("IS");
-
         billingAddressField.sendKeys(street);
         postCodeField.sendKeys(postCode);
         cityField.sendKeys(city);
         mobileNumberField.sendKeys(mobileNumber);
-
         return this;
     }
 
@@ -183,7 +190,6 @@ public class CheckoutPage extends BasePage {
         driver.switchTo().frame(0);
         wait.until(ExpectedConditions.visibilityOf(cardNumberField)).sendKeys(cardNumber);
         driver.switchTo().defaultContent();
-
         return this;
     }
 
@@ -218,6 +224,12 @@ public class CheckoutPage extends BasePage {
         return new OrderReceivedPage(driver);
     }
 
+    public CheckoutPage placeOrderAndDisplayErrors() {
+
+        placeOrderButton.submit();
+        return this;
+    }
+
     public CheckoutPage createNewAccount() {
 
         wait.until(ExpectedConditions.elementToBeClickable(createAccountCheckbox)).click();
@@ -245,6 +257,47 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage useLogInButton() {
 
         logInButton.click();
+        return this;
+    }
+
+    public String getErrorMessage() {
+
+        waitForProcessingEnd();
+        return errorList.getText();
+    }
+
+    public String returnNameErrorMessage() {
+        return nameErrorMessage;
+    }
+
+    public String returnLastNameErrorMessage() {
+        return lastNameErrorMessage;
+    }
+
+    public String returnStreetErrorMessage() {
+        return streetErrorMessage;
+    }
+
+    public String returnZipCodeErrorMessage() {
+        return zipCodeErrorMessage;
+    }
+
+    public String returnCityErrorMessage() {
+        return cityErrorMessage;
+    }
+
+    public String returnPhoneNumberErrorMessage() {
+        return phoneNumberErrorMessage;
+    }
+
+    public String returnEmailErrorMessage() {
+        return emailErrorMEssage;
+    }
+
+    public CheckoutPage waitForProcessingEnd() {
+
+        wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
         return this;
     }
 }

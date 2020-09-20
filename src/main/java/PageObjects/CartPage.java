@@ -54,7 +54,6 @@ public class CartPage extends BasePage {
 
         String productsQuantity = wait.until(ExpectedConditions.visibilityOf(productQuantityField)).getAttribute("value");
         int quantity = Integer.parseInt(productsQuantity);
-
         return quantity;
     }
 
@@ -108,7 +107,6 @@ public class CartPage extends BasePage {
     public CheckoutPage goToCheckOut() {
 
         wait.until(ExpectedConditions.elementToBeClickable(checkoutButton)).click();
-
         return new CheckoutPage(driver);
     }
 
