@@ -3,14 +3,13 @@ package ProjectFakeStore;
 import PageObjects.MyOrdersPage;
 import PageObjects.OrderReceivedPage;
 import PageObjects.ProductPage;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-    @RepeatedTest(10)
+    @Test
     public void buyOneProductWithoutAccountTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -39,8 +38,8 @@ public class PaymentTests extends BaseTest {
         assertTrue(isOrderSuccessful, "The order was not successfully placed.");
     }
 
-    @RepeatedTest(10)
-    public void buyOneProductAndSignUpTest(){
+    @Test
+    public void buyOneProductAndSignUpTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
@@ -74,7 +73,7 @@ public class PaymentTests extends BaseTest {
         myOrdersPage.goToMyAccount().deleteAccount();
     }
 
-    @RepeatedTest(10)
+    @Test
     public void payAndSignInFromPaymentPageTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());

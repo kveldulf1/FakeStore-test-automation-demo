@@ -30,15 +30,14 @@ public class DriverFactory {
     private WebDriver getFireFoxDriver(ConfigurationReader configuration) {
 
         FirefoxOptions options = new FirefoxOptions();
+        options.setCapability(CapabilityType.VERSION, "80");        // check against nodeconfiguration.json
         return getDriver(options, configuration);
-
     }
 
     private WebDriver getChromeDriver(ConfigurationReader configuration) {
 
         ChromeOptions options = new ChromeOptions();
         options.setCapability(CapabilityType.VERSION, "85");        // check against nodeconfiguration.json
-
         return getDriver(options, configuration);
     }
 

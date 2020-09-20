@@ -82,7 +82,6 @@ public class CheckoutPage extends BasePage {
 
         emailField.clear();
         emailField.sendKeys(email);
-
         return this;
     }
 
@@ -182,9 +181,8 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage typeCardNumber(String cardNumber) {
 
         driver.switchTo().frame(0);
-        wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys(cardNumber);
+        wait.until(ExpectedConditions.visibilityOf(cardNumberField)).sendKeys(cardNumber);
         driver.switchTo().defaultContent();
-
 
         return this;
     }
@@ -247,6 +245,13 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage useLogInButton() {
 
         logInButton.click();
+        return this;
+    }
+
+    public CheckoutPage waitForProcessingEnd() {
+
+        wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
         return this;
     }
 }
