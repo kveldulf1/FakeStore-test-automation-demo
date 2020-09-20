@@ -226,7 +226,7 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage goToSignInSection() {
 
-        signInButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(signInButton)).click();
         return this;
     }
 
@@ -245,13 +245,6 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage useLogInButton() {
 
         logInButton.click();
-        return this;
-    }
-
-    public CheckoutPage waitForProcessingEnd() {
-
-        wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));
         return this;
     }
 }
