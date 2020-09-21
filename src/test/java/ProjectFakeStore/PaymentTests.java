@@ -115,13 +115,20 @@ public class PaymentTests extends BaseTest {
         String errorMessage = checkoutPage.getErrorMessage();
 
         assertAll(
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnNameErrorMessage()), "Displayed validation error message for the first name field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnLastNameErrorMessage()), "Displayed validation error message for the last name field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnStreetErrorMessage()), "Displayed validation error message for the street field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnZipCodeErrorMessage()), "Displayed validation error message for the zip code field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnCityErrorMessage()), "Displayed validation error message for the city field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnPhoneNumberErrorMessage()), "Displayed validation error message for the phone number field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnEmailErrorMessage()), "Displayed validation error message for the email field was not as expected.")
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnNameErrorMessage()),
+                        "Displayed validation error message for the first name field was not as expected."),
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnLastNameErrorMessage()),
+                        "Displayed validation error message for the last name field was not as expected."),
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnStreetErrorMessage()),
+                        "Displayed validation error message for the street field was not as expected."),
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnZipCodeErrorMessage()),
+                        "Displayed validation error message for the zip code field was not as expected."),
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnCityErrorMessage()),
+                        "Displayed validation error message for the city field was not as expected."),
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnPhoneNumberErrorMessage()),
+                        "Displayed validation error message for the phone number field was not as expected."),
+                () -> assertTrue(errorMessage.contains(checkoutPage.returnEmailErrorMessage()),
+                        "Displayed validation error message for the email field was not as expected.")
         );
     }
 }
