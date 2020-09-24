@@ -1,5 +1,6 @@
 package ProjectFakeStore;
 
+import Helpers.BaseTest;
 import PageObjects.CheckoutPage;
 import PageObjects.MyOrdersPage;
 import PageObjects.OrderReceivedPage;
@@ -19,17 +20,7 @@ public class PaymentTests extends BaseTest {
         productPage.addToCart()
                 .viewCart()
                 .goToCheckOut()
-                .typeFirstName(testData.getCustomer().getName())
-                .typeLastName(testData.getCustomer().getLastName())
-                .chooseCountry(testData.getAddress().getCountryCode())
-                .typeAddress(testData.getAddress().getStreet())
-                .typePostalCode(testData.getAddress().getPostalCode())
-                .typeCity(testData.getAddress().getCity())
-                .typePhone(testData.getContact().getPhone())
-                .typeEmail(testData.getContact().getEmail())
-                .typeCardNumber(testData.getCard().getNumber()) // Due to a Selenium bug, PaymentTests are not working properly with Firefox
-                .typeCardExpirationDate(testData.getCard().getExpirationDate())
-                .typeCvcCode(testData.getCard().getCvc())
+                .submitDetailsFromTestData()
                 .acceptTerms()
                 .placeOrder();
 
@@ -115,19 +106,19 @@ public class PaymentTests extends BaseTest {
         String errorMessage = checkoutPage.getErrorMessage();
 
         assertAll(
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnNameErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getNameErrorMessage()),
                         "Displayed validation error message for the first name field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnLastNameErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getLastNameErrorMessage()),
                         "Displayed validation error message for the last name field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnStreetErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getStreetErrorMessage()),
                         "Displayed validation error message for the street field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnZipCodeErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getZipCodeErrorMessage()),
                         "Displayed validation error message for the zip code field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnCityErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getCityErrorMessage()),
                         "Displayed validation error message for the city field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnPhoneNumberErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getPhoneNumberErrorMessage()),
                         "Displayed validation error message for the phone number field was not as expected."),
-                () -> assertTrue(errorMessage.contains(checkoutPage.returnEmailErrorMessage()),
+                () -> assertTrue(errorMessage.contains(checkoutPage.getEmailErrorMessage()),
                         "Displayed validation error message for the email field was not as expected.")
         );
     }

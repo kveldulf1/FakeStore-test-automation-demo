@@ -1,9 +1,10 @@
 package PageObjects;
 
+import Helpers.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class BasePage {
+public class BasePage extends BaseTest {
     protected WebDriver driver;
 
     protected BasePage(WebDriver driver) {

@@ -1,7 +1,6 @@
-package ProjectFakeStore;
+package Helpers;
 
 import Drivers.DriverFactory;
-import Helpers.TestStatus;
 import Utils.ConfigurationReader;
 import Utils.TestDataReader;
 import org.junit.jupiter.api.*;
@@ -19,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-public abstract class BaseTest {
+public class BaseTest {
 
     protected WebDriver driver;
     protected ConfigurationReader configuration;
     protected TestDataReader testData;
-    private String testDataLocation = "src/test/java/TestData.properties";
+    private String testDataLocation = "src/configs/TestData.properties";
     private String configurationLocation = "src/configs/Configuration.properties";
 
     @RegisterExtension

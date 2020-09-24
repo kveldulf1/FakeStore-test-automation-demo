@@ -82,6 +82,7 @@ public class CheckoutPage extends BasePage {
     private String phoneNumberErrorMessage = "Telefon płatnika jest wymaganym polem.";
     private String emailErrorMEssage = "Adres email płatnika jest wymaganym polem.";
 
+
     public CheckoutPage(WebDriver driver) {
 
         super(driver);
@@ -109,6 +110,23 @@ public class CheckoutPage extends BasePage {
         postCodeField.sendKeys(postCode);
         cityField.sendKeys(city);
         mobileNumberField.sendKeys(mobileNumber);
+        return this;
+    }
+
+    public CheckoutPage submitDetailsFromTestData() {
+
+        typeFirstName(testData.getCustomer().getName());
+        typeLastName(testData.getCustomer().getLastName());
+        chooseCountry(testData.getAddress().getCountryCode());
+        typeAddress(testData.getAddress().getStreet());
+        typePostalCode(testData.getAddress().getPostalCode());
+        typeCity(testData.getAddress().getCity());
+        typePhone(testData.getContact().getPhone());
+        typeEmail(testData.getContact().getEmail());
+        typeCardNumber(testData.getCard().getNumber()); // Due to a Selenium bug, PaymentTests are not working properly with Firefox
+        typeCardExpirationDate(testData.getCard().getExpirationDate());
+        typeCvcCode(testData.getCard().getCvc());
+
         return this;
     }
 
@@ -266,31 +284,31 @@ public class CheckoutPage extends BasePage {
         return errorList.getText();
     }
 
-    public String returnNameErrorMessage() {
+    public String getNameErrorMessage() {
         return nameErrorMessage;
     }
 
-    public String returnLastNameErrorMessage() {
+    public String getLastNameErrorMessage() {
         return lastNameErrorMessage;
     }
 
-    public String returnStreetErrorMessage() {
+    public String getStreetErrorMessage() {
         return streetErrorMessage;
     }
 
-    public String returnZipCodeErrorMessage() {
+    public String getZipCodeErrorMessage() {
         return zipCodeErrorMessage;
     }
 
-    public String returnCityErrorMessage() {
+    public String getCityErrorMessage() {
         return cityErrorMessage;
     }
 
-    public String returnPhoneNumberErrorMessage() {
+    public String getPhoneNumberErrorMessage() {
         return phoneNumberErrorMessage;
     }
 
-    public String returnEmailErrorMessage() {
+    public String getEmailErrorMessage() {
         return emailErrorMEssage;
     }
 

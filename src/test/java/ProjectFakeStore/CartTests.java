@@ -1,5 +1,6 @@
 package ProjectFakeStore;
 
+import Helpers.BaseTest;
 import PageObjects.CategoryPage;
 import PageObjects.ProductPage;
 import org.junit.jupiter.api.Assertions;
