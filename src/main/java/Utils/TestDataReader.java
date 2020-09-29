@@ -47,9 +47,7 @@ public class TestDataReader extends FileReader {
         return productPages;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
+    public Customer getCustomer() { return customer; }
 
     public Address getAddress() {
         return address;

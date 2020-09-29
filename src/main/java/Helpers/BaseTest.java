@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-public class BaseTest {
+public abstract class BaseTest {
 
     protected WebDriver driver;
     protected ConfigurationReader configuration;

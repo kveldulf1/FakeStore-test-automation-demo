@@ -1,5 +1,6 @@
 package PageObjects;
 
+import Utils.TestDataReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -81,7 +82,7 @@ public class CheckoutPage extends BasePage {
     private String cityErrorMessage = "Miasto płatnika jest wymaganym polem.";
     private String phoneNumberErrorMessage = "Telefon płatnika jest wymaganym polem.";
     private String emailErrorMEssage = "Adres email płatnika jest wymaganym polem.";
-
+    private String testDataLocation = "src/configs/TestData.properties";
 
     public CheckoutPage(WebDriver driver) {
 
@@ -115,6 +116,7 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage submitDetailsFromTestData() {
 
+        testData = new TestDataReader(testDataLocation);
         typeFirstName(testData.getCustomer().getName());
         typeLastName(testData.getCustomer().getLastName());
         chooseCountry(testData.getAddress().getCountryCode());
@@ -123,10 +125,9 @@ public class CheckoutPage extends BasePage {
         typeCity(testData.getAddress().getCity());
         typePhone(testData.getContact().getPhone());
         typeEmail(testData.getContact().getEmail());
-        typeCardNumber(testData.getCard().getNumber()); // Due to a Selenium bug, PaymentTests are not working properly with Firefox
+        typeCardNumber(testData.getCard().getNumber()); // Due to a Selenium bug PaymentTests are not working properly with Firefox
         typeCardExpirationDate(testData.getCard().getExpirationDate());
         typeCvcCode(testData.getCard().getCvc());
-
         return this;
     }
 
@@ -142,7 +143,6 @@ public class CheckoutPage extends BasePage {
         driver.switchTo().defaultContent();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(2));
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys("311");
-
         return this;
     }
 
