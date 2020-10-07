@@ -73,6 +73,9 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = "ul.woocommerce-error")
     private WebElement errorList;
 
+    @FindBy(id = "billing_country")
+    private WebElement countrySelectionDropdown;
+
     private String countryCodeCssSelector = "li[id*='-<country_code>']";
     private By loadingIconLocator = By.cssSelector(".blockOverlay");
     private String nameErrorMessage = "Imię płatnika jest wymaganym polem.";
@@ -84,6 +87,7 @@ public class CheckoutPage extends BasePage {
     private String emailErrorMEssage = "Adres email płatnika jest wymaganym polem.";
     private String testDataLocation = "src/configs/TestData.properties";
 
+
     public CheckoutPage(WebDriver driver) {
 
         super(driver);
@@ -94,6 +98,7 @@ public class CheckoutPage extends BasePage {
 
         emailField.clear();
         emailField.sendKeys(email);
+        driver.switchTo().defaultContent();
         return this;
     }
 
@@ -104,13 +109,18 @@ public class CheckoutPage extends BasePage {
         lastNameField.sendKeys(lastName);
         emailField.clear();
         emailField.sendKeys(email);
-        WebElement countrySelectionDropdown = driver.findElement(By.id("billing_country"));
-        Select country = new Select(countrySelectionDropdown);
-        country.selectByValue("IS");
+        selectCountry("IS");
         billingAddressField.sendKeys(street);
         postCodeField.sendKeys(postCode);
         cityField.sendKeys(city);
         mobileNumberField.sendKeys(mobileNumber);
+        return this;
+    }
+
+    public CheckoutPage selectCountry(String countryCode) {
+
+        Select country = new Select(countrySelectionDropdown);
+        country.selectByValue(countryCode);
         return this;
     }
 
@@ -125,7 +135,7 @@ public class CheckoutPage extends BasePage {
         typeCity(testData.getAddress().getCity());
         typePhone(testData.getContact().getPhone());
         typeEmail(testData.getContact().getEmail());
-        typeCardNumber(testData.getCard().getNumber()); // Due to a Selenium bug PaymentTests are not working properly with Firefox
+        typeCardNumber(testData.getCard().getNumber());
         typeCardExpirationDate(testData.getCard().getExpirationDate());
         typeCvcCode(testData.getCard().getCvc());
         return this;
@@ -133,16 +143,10 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage submitPaymentDetails() {
 
-        driver.switchTo().frame(0);
-        wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys("4242424242424242");
-
-        driver.switchTo().defaultContent();
-        driver.switchTo().frame(1);
-        wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys("02/23");
-
-        driver.switchTo().defaultContent();
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(2));
-        wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys("311");
+        // Valid test card
+        typeCardNumber("4242424242424242");
+        typeCardExpirationDate("02/23");
+        typeCvcCode("311");
         return this;
     }
 
@@ -205,15 +209,16 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeCardNumber(String cardNumber) {
 
-        driver.switchTo().frame(0);
-        wait.until(ExpectedConditions.visibilityOf(cardNumberField)).sendKeys(cardNumber);
+        switchToCardNumberFrame();
+        wait.until(ExpectedConditions.elementToBeClickable(cardNumberField)).sendKeys(cardNumber);
         driver.switchTo().defaultContent();
         return this;
     }
 
     public CheckoutPage typeCardExpirationDate(String expirationDate) {
 
-        driver.switchTo().frame(1);
+
+        switchToCardExpiryDateFrame();
         wait.until(ExpectedConditions.elementToBeClickable(cardExpDateField)).sendKeys(expirationDate);
         driver.switchTo().defaultContent();
         return this;
@@ -221,15 +226,38 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage typeCvcCode(String cvcCode) {
 
-        driver.switchTo().frame(2);
+        switchToCardCVCFrame();
         wait.until(ExpectedConditions.elementToBeClickable(cardCvcField)).sendKeys(cvcCode);
         driver.switchTo().defaultContent();
+        return this;
+    }
+
+    public CheckoutPage switchToCardNumberFrame() {
+
+        // this is the only way for these switchToFrame methods to work both with Chrome and Firefox
+        WebElement cardNumberFrame = driver.findElement(By.cssSelector("iframe[title*='numer']"));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardNumberFrame));
+        return this;
+    }
+
+    public CheckoutPage switchToCardExpiryDateFrame() {
+
+        WebElement cardExpiryDateFrame = driver.findElement(By.cssSelector("iframe[title*='termin']"));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardExpiryDateFrame));
+        return this;
+    }
+
+    public CheckoutPage switchToCardCVCFrame() {
+
+        WebElement cardCVCFrame = driver.findElement(By.cssSelector("iframe[title*='CVC']"));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(cardCVCFrame));
         return this;
     }
 
     public CheckoutPage acceptTerms() {
 
         driver.switchTo().defaultContent();
+        waitForLoadingIconToDisappear();
         acceptTermsCheckbox.click();
         return this;
     }
@@ -280,39 +308,46 @@ public class CheckoutPage extends BasePage {
 
     public String getErrorMessage() {
 
-        waitForProcessingEnd();
+        waitForLoadingIconToDisappear();
         return errorList.getText();
     }
 
     public String getNameErrorMessage() {
+
         return nameErrorMessage;
     }
 
     public String getLastNameErrorMessage() {
+
         return lastNameErrorMessage;
     }
 
     public String getStreetErrorMessage() {
+
         return streetErrorMessage;
     }
 
     public String getZipCodeErrorMessage() {
+
         return zipCodeErrorMessage;
     }
 
     public String getCityErrorMessage() {
+
         return cityErrorMessage;
     }
 
     public String getPhoneNumberErrorMessage() {
+
         return phoneNumberErrorMessage;
     }
 
     public String getEmailErrorMessage() {
+
         return emailErrorMEssage;
     }
 
-    public CheckoutPage waitForProcessingEnd() {
+    public CheckoutPage waitForLoadingIconToDisappear() {
 
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));

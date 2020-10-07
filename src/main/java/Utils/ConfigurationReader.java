@@ -8,9 +8,9 @@ public class ConfigurationReader extends FileReader {
     private String browser;
 
     public ConfigurationReader(String configurationLocation) {
+
         super(configurationLocation);
         this.configurationLocation = configurationLocation;
-
     }
 
     void loadData() {
@@ -21,18 +21,22 @@ public class ConfigurationReader extends FileReader {
     }
 
     public String getBrowser() {
+
         return browser;
     }
 
     public String getHubUrl() {
+
         return hubUrl;
     }
 
     public String getConfigurationLocation() {
+
         return configurationLocation;
     }
 
     public String getBaseUrl() {
+
         return baseUrl;
     }
 }

@@ -78,7 +78,7 @@ public class CartPage extends BasePage {
         return this;
     }
 
-    public CartPage waitForProcessingEnd() {
+    public CartPage waitForLoadingIconToDisappear() {
 
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.numberOfElementsToBe(loadingIconLocator, 0));

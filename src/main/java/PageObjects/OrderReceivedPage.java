@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class OrderReceivedPage extends BasePage {
+
     WebDriverWait wait;
 
     @FindBy(css = ".woocommerce-thankyou-order-received")

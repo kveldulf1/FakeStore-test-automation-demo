@@ -29,6 +29,7 @@ public class ProductPage extends BasePage {
     private WebElement productQuantityField;
 
     public ProductPage goTo(String url) {
+
         driver.navigate().to(url);
         return this;
     }

@@ -5,13 +5,14 @@ import PageObjects.CheckoutPage;
 import PageObjects.MyOrdersPage;
 import PageObjects.OrderReceivedPage;
 import PageObjects.ProductPage;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTests extends BaseTest {
 
-    @Test
+    @RepeatedTest(10)
     public void buyOneProductWithoutAccountTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -30,7 +31,7 @@ public class PaymentTests extends BaseTest {
         assertTrue(isOrderSuccessful, "The order was not successfully placed.");
     }
 
-    @Test
+    @RepeatedTest(10)
     public void buyOneProductAndSignUpTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -55,7 +56,7 @@ public class PaymentTests extends BaseTest {
         myOrdersPage.goToMyAccount().deleteAccount();
     }
 
-    @Test
+    @RepeatedTest(10)
     public void payAndSignInFromPaymentPageTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
@@ -69,7 +70,7 @@ public class PaymentTests extends BaseTest {
                 .enterPassword("ComplicatedPassword720!")
                 .useLogInButton()
                 .enterEmail("kveldulf@postur.is")
-                .submitPaymentDetails() // Due to a Selenium bug, PaymentTests are not working properly with Firefox
+                .submitPaymentDetails()
                 .acceptTerms()
                 .placeOrder()
                 .getOrderStatus();
@@ -78,7 +79,7 @@ public class PaymentTests extends BaseTest {
                 orderStatus, "Failed to sign in from payment page and to complete the order simultaneously.");
     }
 
-    @Test
+    @RepeatedTest(10)
     public void checkoutFormValidationTest() {
 
         ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());

@@ -30,7 +30,7 @@ public class DriverFactory {
     private WebDriver getFireFoxDriver(ConfigurationReader configuration) {
 
         FirefoxOptions options = new FirefoxOptions();
-        options.setCapability(CapabilityType.VERSION, "80");        // check against nodeconfiguration.json
+        options.setCapability(CapabilityType.VERSION, "81");        // check against nodeconfiguration.json
         return getDriver(options, configuration);
     }
 
@@ -47,7 +47,8 @@ public class DriverFactory {
             driver = new RemoteWebDriver(new URL(configuration.getHubUrl()), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            System.out.println(e + "was thrown. HubUrl in the configuration file is incorrect or missing. Check the configuration file: " + configuration.getConfigurationLocation()) ;
+            System.out.println(e + "was thrown. HubUrl in the configuration file is incorrect or missing." +
+                    " Check the configuration file: " + configuration.getConfigurationLocation()) ;
         }
         return driver;
     }

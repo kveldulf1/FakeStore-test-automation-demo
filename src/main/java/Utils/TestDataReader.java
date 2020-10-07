@@ -32,36 +32,43 @@ public class TestDataReader extends FileReader {
     }
 
     public String getTestDataLocation() {
+
         return testDataLocation;
     }
 
     public Product getProduct() {
+
         return product;
     }
 
     public String getCategoryURL() {
+
         return categoryURL;
     }
 
-    public String[] getProductPages() {
-        return productPages;
+
+    public Customer getCustomer() {
+
+        return customer;
     }
 
-    public Customer getCustomer() { return customer; }
-
     public Address getAddress() {
+
         return address;
     }
 
     public Contact getContact() {
+
         return contact;
     }
 
     public Card getCard() {
+
         return card;
     }
 
     public Password getPassword() {
+
         return password;
     }
 }

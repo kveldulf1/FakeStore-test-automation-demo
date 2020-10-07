@@ -30,6 +30,7 @@ public class CategoryPage extends BasePage {
     private By categoryViewCartButtonLocator = By.cssSelector("a[title='Zobacz koszyk']");
 
     public CategoryPage(WebDriver driver) {
+
         super(driver);
         header = new HeaderPage(driver);
         demoNotice = new DemoFooterPage(driver);
@@ -37,6 +38,7 @@ public class CategoryPage extends BasePage {
     }
 
     public CategoryPage goTo(String url) {
+
         driver.navigate().to(url);
         return this;
     }

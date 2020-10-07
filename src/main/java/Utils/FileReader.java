@@ -9,11 +9,13 @@ public abstract class FileReader {
     Properties properties;
 
     protected FileReader (String fileLocation){
+
         loadFile(fileLocation);
         loadData();
     }
 
     public void loadFile(String fileLocation) {
+
         properties = new Properties();
         try {
             properties.load(new FileInputStream(fileLocation));

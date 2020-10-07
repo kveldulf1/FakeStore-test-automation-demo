@@ -5,7 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HeaderPage extends BasePage {
+
     protected HeaderPage(WebDriver driver) {
+
         super(driver);
     }
 
@@ -13,6 +15,7 @@ public class HeaderPage extends BasePage {
     private WebElement totalPriceInformation;
 
     public CartPage viewCart() {
+
         totalPriceInformation.click();
         return new CartPage(driver);
     }

@@ -79,7 +79,7 @@ public class CartTests extends BaseTest {
                 .viewCart()
                 .setQuantity(10)
                 .updateCart()
-                .waitForProcessingEnd()
+                .waitForLoadingIconToDisappear()
                 .getProductQuantityField();
 
         assertTrue(productsQuantity == 10, "Actual products quantity in cart does not match expected quantity.");

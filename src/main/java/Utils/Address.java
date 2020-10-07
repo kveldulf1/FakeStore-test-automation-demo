@@ -9,6 +9,7 @@ public class Address {
     private final String city;
 
     public Address(Properties properties) {
+
         countryCode = properties.getProperty("address.countryCode");
         street = properties.getProperty("address.street");
         postalCode = properties.getProperty("address.postalCode");
@@ -16,18 +17,22 @@ public class Address {
     }
 
     public String getCountryCode() {
+
         return countryCode;
     }
 
     public String getStreet() {
+
         return street;
     }
 
     public String getPostalCode() {
+
         return postalCode;
     }
 
     public String getCity() {
+
         return city;
     }
 }
