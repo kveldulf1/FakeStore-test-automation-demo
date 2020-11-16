@@ -12,13 +12,9 @@ public class Customer {
         lastName = properties.getProperty("customer.lastName");
     }
 
-    public String getName() {
-
-        return name;
+    public String getName() { return name;
     }
 
-    public String getLastName() {
-
-        return lastName;
+    public String getLastName() { return lastName;
     }
 }

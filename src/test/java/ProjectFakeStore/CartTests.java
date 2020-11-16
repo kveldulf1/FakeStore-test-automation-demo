@@ -55,7 +55,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void addFiveDifferentProductsToCartTest() {
+    public void addSixDifferentProductsToCartTest() {
 
         CategoryPage categoryPage = new CategoryPage(driver).goTo(configuration.getBaseUrl() + testData.getCategoryURL());
         categoryPage.demoNotice.close();
@@ -65,7 +65,7 @@ public class CartTests extends BaseTest {
                 .viewCart()
                 .getNumberOfProducts();
 
-        assertEquals(5, numberOfProducts, "The quantity of products in cart is not as expected.");
+        assertEquals(6, numberOfProducts, "The quantity of products in cart is not as expected.");
     }
 
     @Test
